@@ -57,8 +57,14 @@ module.exports = (context, callback) => {
     method: 'POST',
     url: eventData.trigger.service.endpoint,
     data: {
+      url: `${context.secrets.DASHBOARD_URL}/triggers/${eventData.trigger.id}/${eventData.id}`,
       meta: eventData.trigger.serviceData,
-      payload: eventData.payload
+      payload: eventData.payload,
+      trigger: {
+        id: eventData.trigger.id,
+        eventName: eventData.trigger.eventName,
+        contract: eventData.trigger.contract
+      }
     }
   })
     .then(monitoring)
