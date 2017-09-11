@@ -1,0 +1,21 @@
+{
+  "name": "task-log-created-handle-error",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "wt create --bundle --secrets-file .env index.js",
+    "watch": "wt create --bundle --watch --secrets-file .env index.js",
+    "dev": "wt serve --secrets-file .env index.js",
+    "logs": "wt logs"
+  },
+  "author": "Anthony Estebe <contact@anthonyestebe.com> (http://microblog.anthonyestebe.com/)",
+  "license": "ISC",
+  "dependencies": {
+    "isomorphic-fetch": "^2.2.1"
+  },
+  "devDependencies": {
+    "standard": "^10.0.3",
+    "wt-cli": "^6.2.2"
+  }
+}
