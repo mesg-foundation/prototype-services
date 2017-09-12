@@ -13,7 +13,7 @@ module.exports = (context, callback) => {
     'content-type': 'application/json',
     'Authorization': `Bearer ${context.secrets.SECRET}`
   })
-  const graphcoolQuery = authenticatedRequest(`https://api.graph.cool/simple/v1/${context.secrets.PROJECT_ID}`) 
+  const graphcoolQuery = authenticatedRequest(`https://api.graph.cool/simple/v1/${context.secrets.PROJECT_ID}`)
 
   Promise.resolve(createQuery(
     projectId,
@@ -23,7 +23,6 @@ module.exports = (context, callback) => {
   )
     .then(graphcoolQuery)
     .then(extractTotalError)
-    .then(x => { console.log(x); return x })
     .then(errorLimitReached(context.secrets.MAX_ERROR_COUNT))
     .then(updateTriggerStatus(trigger.id, graphcoolQuery))
     .then(x => callback(null, x))

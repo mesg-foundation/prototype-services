@@ -1,0 +1,20 @@
+{
+  "name": "notification-created-notify-team",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "wt create --secrets-file .env index.js",
+    "watch": "wt create --watch --secrets-file .env index.js",
+    "dev": "wt serve --secrets-file .env index.js",
+    "logs": "wt logs"
+  },
+  "author": "Anthony Estebe <contact@anthonyestebe.com> (http://microblog.anthonyestebe.com/)",
+  "license": "ISC",
+  "dependencies": {
+    "sendgrid": "^5.2.3"
+  },
+  "devDependencies": {
+    "wt-cli": "^6.2.2"
+  }
+}
