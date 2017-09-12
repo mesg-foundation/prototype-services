@@ -1,5 +1,5 @@
 {
-  "name": "task-log-created-notify-when-new-error",
+  "name": "task-log-created-notify-when-error",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
