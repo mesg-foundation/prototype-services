@@ -24,7 +24,7 @@ module.exports = (context, callback) => {
     .then(graphcoolQuery)
     .then(extractTotalError)
     .then(errorLimitReached(context.secrets.MAX_ERROR_COUNT))
-    .then(updateTriggerStatus(trigger.id, graphcoolQuery))
+    .then(updateTriggerStatus(trigger.id, projectId, graphcoolQuery))
     .then(x => callback(null, x))
     .catch(callback)
 }
