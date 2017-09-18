@@ -11,13 +11,13 @@ const api = (endpoint, authorization) => query => fetch(endpoint, {
   body: JSON.stringify({ query })
 })
 
-const reachLimit = project => project._usersMeta.count >= project.plan.members
+// const reachLimit = project => !project._usersMeta.count || project._usersMeta.count >= project.plan.members
 const presentInTeam = (email, project) => !!project.users.find(x => x.email === email)
 
 module.exports = (context, callback) => {
   const data = context.body.data.Invitation.node
   
-  if (reachLimit(data.project)) { return callback(new Error('limit reached')) }
+  // if (reachLimit(data.project)) { return callback(new Error('limit reached')) }
   if (presentInTeam(data.email, data.project)) { return callback(new Error('already in the team')) }
 
   const execute = api(`https://api.graph.cool/simple/v1/${context.secrets.PROJECT_ID}`, context.secrets.SECRET)
