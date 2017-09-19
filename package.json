@@ -7,14 +7,16 @@
     "type": "git"
   },
   "scripts": {
-    "seed": "node database/seed",
-    "deploy": "graphcool deploy"
+    "db:seed": "node db/seed",
+    "deploy:dev": "graphcool deploy --env dev",
+    "deploy:dev:force": "graphcool deploy --env dev --force",
+    "deploy:prod": "graphcool deploy --env prod",
+    "deploy:prod:force": "graphcool deploy --env prod --force"
   },
   "author": "Anthony ESTEBE <anthony.estebe@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "lokka": "^1.7.0",
-    "lokka-transport-http": "^1.6.1"
+    "graphql-request": "^1.3.6"
   },
   "devDependencies": {
     "graphcool": "beta"

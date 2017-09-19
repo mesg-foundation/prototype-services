@@ -1,3 +1,4 @@
+const fromEvent = require('graphcool-lib').fromEvent
 const axios = require('axios')
 
 const query = `mutation(
@@ -26,7 +27,7 @@ const startMonitoring = () => {
   )
 }
 
-const logResponse = event => response => {
+const logResponse = (event, api) => response => {
   const variables = {
     triggerId: event.trigger.id,
     body: response.data ? JSON.stringify(response.data) : response.message,
@@ -34,25 +35,14 @@ const logResponse = event => response => {
     eventId: event.id,
     duration: response.duration || 0
   }
-  return axios({
-    method: 'POST',
-    url: `https://api.graph.cool/simple/v1/${process.env.GRAPHCOOL_PROJECT_ID}`,
-    headers: {
-      'content-type': 'application/json',
-      'Authorization': `Bearer ${process.env.GRAPHCOOL_SECRET}`
-    },
-    data: {
-      query,
-      variables
-    }
-  })
-    .then(x => x.data)
+  return api.request(query, variables)
 }
 
 module.exports = event => {
   const eventData = event.data.Event.node
   const monitoring = startMonitoring()
-  const log = logResponse(eventData)
+  const api = fromEvent(event).api('simple/v1')
+  const log = logResponse(eventData, api)
   return axios({
     method: 'POST',
     url: eventData.trigger.service.endpoint,
