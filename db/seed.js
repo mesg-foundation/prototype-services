@@ -1,12 +1,20 @@
-const Lokka = require('lokka').Lokka
-const Transport = require('lokka-transport-http').Transport
+const { GraphQLClient } = require('graphql-request')
 
-const client = new Lokka({
-  transport: new Transport(`https://api.graph.cool/simple/v1/${process.env.GRAPHCOOL_PROJECT_ID}`, {
-    headers: {
-      'Authorization': `Bearer ${process.env.GRAPHCOOL_SECRET}`
-    }
-  })
+const projectId = process.argv[2]
+const token = process.argv[3]
+
+if (!projectId || !token) {
+  console.log('ERROR: Command should contains the project id and the authentication token')
+  console.log()
+  console.log('> yarn db:seed __PROJECT_ID__ __AUTH_TOKEN__')
+  console.log()
+  process.exit(0)
+}
+
+const client = new GraphQLClient(`https://api.graph.cool/simple/v1/${projectId}`, {
+  headers: {
+    'Authorization': `Bearer ${token}`
+  }
 })
 
 const types = {
@@ -49,7 +57,7 @@ Promise.all([
   'Service'
 ]
   .map(type => Promise.all(data(type)
-    .map(x => client.mutate(`{
+    .map(x => client.request(`mutation {
       create${type}(
         ${transformPayload(type, x)}
       ) {
