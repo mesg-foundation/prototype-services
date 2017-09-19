@@ -92,6 +92,24 @@ modules:
 # Model/Relation permissions
 permissions:
 - operation: "*"
+# Basket permissions
+# - operation: Basket.create
+#   authenticated: true
+# - operation: Basket.read
+#   authenticated: true
+#   query: permissions/Basket.graphql
+# - operation: Basket.update
+#   authenticated: true
+#   query: permissions/Basket.graphql
+# - operation: Basket.delete
+#   authenticated: true
+#   query: permissions/Basket.graphql
+
+# # Item permissions
+# - operation: Item.read
+# - operation: Item.create
+#   authenticated: true
+#   query: permissions/Item.graphql
 
   
 # Permanent Auth Token / Root Tokens
