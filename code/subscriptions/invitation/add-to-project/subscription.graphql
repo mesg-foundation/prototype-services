@@ -1,0 +1,23 @@
+subscription {
+  Invitation(filter: {
+    mutation_in: [CREATED]
+  }) {
+    updatedFields
+    node {
+      id,
+      email,
+      project {
+        id
+        plan {
+          members
+        },
+        _usersMeta {
+          count
+        },
+      	users {
+        	email
+      	}
+   		}
+    }
+  }
+}

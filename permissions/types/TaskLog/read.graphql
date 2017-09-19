@@ -1,0 +1,14 @@
+{
+  SomeTaskLogExists(
+    filter: {
+      id: $node_id,
+      trigger: {
+        project: {
+          users_some: {
+            id: $user_id
+          }
+        }
+      }
+    }
+  )
+}

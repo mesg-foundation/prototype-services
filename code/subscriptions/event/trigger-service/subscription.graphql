@@ -1,0 +1,24 @@
+subscription {
+  Event(filter: {
+    mutation_in: [CREATED]
+  }) {
+    updatedFields
+    node {
+      id
+      payload
+      trigger {
+        id
+        contract {
+          address
+          chain
+          name
+        }
+        eventName
+        serviceData
+        service {
+          endpoint
+        }
+      }
+    }
+  }
+}

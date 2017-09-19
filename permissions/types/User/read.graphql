@@ -1,0 +1,19 @@
+{
+  SomeUserExists(
+    filter: {
+      OR: [
+        { id: $user_id },
+        {
+					projects_some: {
+            users_some: {
+              OR: [
+                { id: $user_id },
+                { id: $node_id }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  )
+}

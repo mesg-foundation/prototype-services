@@ -1,0 +1,14 @@
+{
+  "data": {
+    "allPlans": [
+      {
+        "contracts": null,
+        "executions": null,
+        "price": 0,
+        "currency": "USD",
+        "members": null,
+        "title": "Beta"
+      }
+    ]
+  }
+}

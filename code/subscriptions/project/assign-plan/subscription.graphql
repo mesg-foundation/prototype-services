@@ -1,0 +1,13 @@
+subscription {
+  Project(filter: {
+    mutation_in: [CREATED]
+  }) {
+    updatedFields
+    node {
+      id
+      plan {
+        id
+      }
+    }
+  }
+}

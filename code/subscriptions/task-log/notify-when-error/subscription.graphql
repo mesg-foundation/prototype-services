@@ -1,0 +1,19 @@
+subscription {
+  TaskLog(filter: {
+    mutation_in: [CREATED],
+    node: {
+      code_not_starts_with: "20"
+    }
+  }) {
+    updatedFields
+    node {
+      id
+      trigger {
+        id
+        project {
+          id
+        }
+      }
+    }
+  }
+}

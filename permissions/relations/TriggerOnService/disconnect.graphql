@@ -1,0 +1,5 @@
+{
+  SomeServiceExists(filter: {
+    id: $serviceService_id
+  })
+}

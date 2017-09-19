@@ -1,0 +1,100 @@
+{
+  "data": {
+    "allServices": [
+      {
+        "name": "Email with Sendgrid",
+        "priority": 4,
+        "description": "Send email with Sendgrid API",
+        "data": [
+          {
+            "name": "secret",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "from",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "to",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "subject",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "type": "string"
+          }
+        ],
+        "key": "SendgridEmail",
+        "endpoint": "https://t6lqq501ng.execute-api.us-east-1.amazonaws.com/dev/sendgrid-email",
+        "picture": "https://sendgrid.kke.co.jp/images/common/logo.svg"
+      },
+      {
+        "name": "Webhook",
+        "priority": 1,
+        "description": "Send the event data to any webhook, connect directly to your application backend or create a serverless function to handle the event",
+        "data": [
+          {
+            "name": "endpoint",
+            "type": "string",
+            "required": true,
+            "regexp": "^https?://"
+          },
+          {
+            "name": "method",
+            "type": "string",
+            "default": "POST",
+            "values": [
+              "POST",
+              "GET"
+            ]
+          },
+          {
+            "name": "headers",
+            "type": "object"
+          }
+        ],
+        "key": "Webhook",
+        "endpoint": "https://d5i8zdu9j4.execute-api.us-east-1.amazonaws.com/dev/webhook",
+        "picture": "https://mailparser.io/img/integrations/webhook.png"
+      },
+      {
+        "name": "Serverless Function",
+        "priority": 2,
+        "description": "Execute a webtask function with all the data from your Ethereum Event. You can then treat your data as you want",
+        "data": [
+          {
+            "name": "code",
+            "type": "string",
+            "required": true,
+            "default": "module.exports = (event, callback) => {\n\tcallback(null, event)\n}"
+          }
+        ],
+        "key": "ServerlessFunction",
+        "endpoint": "https://16mu7pc7qf.execute-api.us-east-1.amazonaws.com/dev/serverless-function",
+        "picture": "https://cdn.auth0.com/website/assets/pages/press/img/resources/webtask-logo-f479cae0f6.svg"
+      },
+      {
+        "name": "Slack Notification",
+        "priority": 3,
+        "description": "Send an event on your Slack with the details of the event",
+        "data": [
+          {
+            "name": "webhookUrl",
+            "type": "string",
+            "required": true,
+            "regexp": "^https?://"
+          }
+        ],
+        "key": "SlackNotification",
+        "endpoint": "https://oyig3xfot9.execute-api.us-east-1.amazonaws.com/dev/slack",
+        "picture": "https://assets.brandfolder.com/p34392sa/view@2x.png"
+      }
+    ]
+  }
+}
