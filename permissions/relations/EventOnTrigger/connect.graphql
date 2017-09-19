@@ -1,0 +1,10 @@
+{
+  SomeTriggerExists(filter: {
+    id: $triggerTrigger_id,
+    project: {
+      users_some: {
+        id: $user_id
+      }
+    }
+  })
+}

@@ -1,0 +1,10 @@
+{
+  SomeProjectExists(
+    filter: {
+      id: $node_id,
+      users_some: {
+        id: $user_id
+      }   
+    }
+  )
+}
