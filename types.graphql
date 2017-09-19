@@ -1,0 +1,149 @@
+# This file contains the GraphQL Types
+
+# All types need to have the three fields id, updatedAt and createdAt like this:
+
+type User implements Node {
+  createdAt: DateTime!
+  email: String @isUnique
+  id: ID! @isUnique
+  password: String
+  updatedAt: DateTime!
+  projects: [Project!]! @relation(name: "ProjectOnUser")
+}
+
+
+# Graphcool has one special type, the File type:
+
+# type File implements Node {
+#   contentType: String!
+#   createdAt: DateTime!
+#   id: ID! @isUnique
+#   name: String!
+#   secret: String! @isUnique
+#   size: Int!
+#   updatedAt: DateTime!
+#   url: String! @isUnique
+# }
+
+type Contract implements Node {
+  address: String!
+  createdAt: DateTime!
+  id: ID! @isUnique
+  updatedAt: DateTime!
+  public: Boolean! @defaultValue(value: true)
+  abi: Json!
+  project: Project @relation(name: "ProjectOnContract")
+  triggers: [Trigger!]! @relation(name: "TriggerOnContract")
+  chain: CHAIN! @defaultValue(value: MAINNET)
+  description: String
+  name: String!
+}
+
+type Trigger implements Node {
+  createdAt: DateTime!
+  id: ID! @isUnique
+  enable: Boolean @defaultValue(value: true)
+  updatedAt: DateTime!
+  contract: Contract @relation(name: "TriggerOnContract")
+  eventName: String!
+  project: Project @relation(name: "TriggerOnProject")
+  events: [Event!]! @relation(name: "EventOnTrigger")
+  taskLogs: [TaskLog!]! @relation(name: "TastLogOnTrigger")
+  notifications: [Notification!]! @relation(name: "NotificationOnTrigger")
+  service: Service @relation(name: "TriggerOnService")
+  serviceData: Json
+}
+
+type Project implements Node {
+  contracts: [Contract!]! @relation(name: "ProjectOnContract")
+  createdAt: DateTime!
+  id: ID! @isUnique
+  name: String!
+  updatedAt: DateTime!
+  users: [User!]! @relation(name: "ProjectOnUser")
+  triggers: [Trigger!]! @relation(name: "TriggerOnProject")
+  invitations: [Invitation!]! @relation(name: "InvitationOnProject")
+  plan: Plan @relation(name: "ProjectOnPlan")
+  notifications: [Notification!]! @relation(name: "NotificationOnProject")
+}
+
+type TaskLog implements Node {
+  body: String
+  code: String!
+  createdAt: DateTime!
+  id: ID! @isUnique
+  updatedAt: DateTime!
+  trigger: Trigger @relation(name: "TastLogOnTrigger")
+  event: Event @relation(name: "EventOnTaskLogs")
+  duration: Int @defaultValue(value: 0)
+}
+
+type Event implements Node {
+  createdAt: DateTime!
+  id: ID! @isUnique
+  payload: Json!
+  transactionId: String!
+  updatedAt: DateTime!
+  trigger: Trigger @relation(name: "EventOnTrigger")
+  taskLogs: [TaskLog!]! @relation(name: "EventOnTaskLogs")
+}
+
+type Plan implements Node {
+  createdAt: DateTime!
+  currency: CURRENCY! @defaultValue(value: USD)
+  id: ID! @isUnique
+  price: Int! @isUnique
+  title: String! @isUnique
+  updatedAt: DateTime!
+  contracts: Int
+  executions: Int
+  members: Int
+  projects: [Project!]! @relation(name: "ProjectOnPlan")
+}
+
+type Invitation implements Node {
+  createdAt: DateTime!
+  email: String!
+  id: ID! @isUnique
+  project: Project @relation(name: "InvitationOnProject")
+  updatedAt: DateTime!
+}
+
+type Notification implements Node {
+  createdAt: DateTime!
+  id: ID! @isUnique
+  kind: NOTIFICATION_KIND!
+  project: Project @relation(name: "NotificationOnProject")
+  trigger: Trigger @relation(name: "NotificationOnTrigger")
+  updatedAt: DateTime!
+}
+
+type Service implements Node {
+  createdAt: DateTime!
+  data: Json
+  description: String
+  endpoint: String! @isUnique
+  id: ID! @isUnique
+  key: String! @isUnique
+  name: String!
+  picture: String
+  priority: Int @defaultValue(value: 9999)
+  triggers: [Trigger!]! @relation(name: "TriggerOnService")
+  updatedAt: DateTime!
+}
+
+enum CHAIN {
+  HOMESTEAD
+  MAINNET
+  TESTNET
+  KOVAN
+}
+
+enum CURRENCY {
+  USD
+}
+
+enum NOTIFICATION_KIND {
+  TRIGGER_DISABLED
+  TRIGGER_ERROR
+}

@@ -1,0 +1,26 @@
+subscription {
+  Notification(filter: {
+    mutation_in: [CREATED]
+  }) {
+    updatedFields
+    node {
+      id
+      kind
+      project {
+        name
+        users {
+          email
+        }
+      }
+      trigger {
+        id
+        notifications(
+          orderBy: createdAt_DESC
+          first: 2
+        ) {
+          createdAt
+        }
+      }
+    }
+  }
+}
