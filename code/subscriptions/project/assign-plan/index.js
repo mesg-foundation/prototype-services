@@ -36,7 +36,7 @@ module.exports = event => {
 
   if (project.plan && project.plan.id) { return callback(new Error(`This project already have a plan`)) }
 
-  execute(freePlanQuery())
+  return execute(freePlanQuery())
     .then(x => x.json())
     .then(x => x.data.allPlans[0].id)
     .then(x => execute(assignPlanQuery(project.id, x)))
