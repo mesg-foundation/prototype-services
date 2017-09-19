@@ -25,8 +25,6 @@ functions:
       code:
         src: ./code/subscriptions/event/trigger-service/index.js
         environment:
-          GRAPHCOOL_PROJECT_ID: ${env:GRAPHCOOL_PROJECT_ID}
-          GRAPHCOOL_SECRET: ${env:GRAPHCOOL_SECRET}
           DASHBOARD_URL: ${env:DASHBOARD_URL}
   invitation-send-email:
     type: subscription
