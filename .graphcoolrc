@@ -1,3 +1,4 @@
 default: dev
 environments:
   dev: cj7r0r8d10gk801492n12dv4a
+  prod: cj7ri5z8d0x5m0149sskbwe15
