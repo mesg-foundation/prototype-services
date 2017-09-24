@@ -83,6 +83,10 @@ type Event implements Node {
   id: ID! @isUnique
   payload: Json!
   transactionId: String!
+  from: String! @migrationValue(value: "0x")
+  to: String! @migrationValue(value: "0x")
+  value: Float! @migrationValue(value: 0)
+  fees: Float! @migrationValue(value: 0)
   updatedAt: DateTime!
   trigger: Trigger @relation(name: "EventOnTrigger")
   taskLogs: [TaskLog!]! @relation(name: "EventOnTaskLogs")
