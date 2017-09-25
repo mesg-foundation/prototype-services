@@ -6,14 +6,24 @@ subscription {
     node {
       id
       payload
+      transactionId
+      blockId
+      from
+      to
+      value
+      fees
       trigger {
         id
-        contract {
-          address
-          chain
-          name
+        connector {
+          ethereumContract {
+            eventName
+            contract {
+              address
+              chain
+              name
+            }
+          }
         }
-        eventName
         serviceData
         service {
           endpoint
