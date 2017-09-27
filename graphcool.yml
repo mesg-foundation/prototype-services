@@ -82,6 +82,14 @@ permissions:
 # ======= PERMISSION FOR TYPES =======
 # ====================================
 
+# === Action
+- operation: Action.create
+  authenticated: true
+  query: permissions/types/Action/create.graphql
+- operation: Action.read
+  authenticated: true
+  query: permissions/types/Action/read.graphql
+
 # === Connector
 - operation: Connector.create
   authenticated: true
@@ -189,6 +197,14 @@ permissions:
 # ========================================
 # ======= PERMISSION FOR RELATIONS =======
 # ========================================
+
+- operation: ServiceOnAction.connect
+  authenticated: true
+  # query: ... TODO
+
+- operation: ActionOnProject.connect
+  authenticated: true
+  # query: ... TODO
 
 # === ConnectorOnTriggers
 - operation: ConnectorOnTriggers.connect
