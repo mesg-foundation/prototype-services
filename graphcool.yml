@@ -86,6 +86,9 @@ permissions:
 - operation: Connector.create
   authenticated: true
   query: permissions/types/Connector/create.graphql
+- operation: Connector.update
+  authenticated: true
+  query: permissions/types/Connector/update.graphql
 - operation: Connector.read
   authenticated: true
   query: permissions/types/Connector/read.graphql
