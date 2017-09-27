@@ -77,16 +77,20 @@ modules:
 
 # Model/Relation permissions
 permissions:
-# User permissions
-- operation: User.create
-- operation: User.read
-  authenticated: true
-  query: permissions/types/User/read.graphql
-- operation: User.read
-  fields:
-    - id
 
-# Contract
+# ====================================
+# ======= PERMISSION FOR TYPES =======
+# ====================================
+
+# === Connector
+- operation: Connector.create
+  authenticated: true
+  query: permissions/types/Connector/create.graphql
+- operation: Connector.read
+  authenticated: true
+  query: permissions/types/Connector/read.graphql
+
+# === Contract
 - operation: Contract.create
   authenticated: true
   query: permissions/types/Contract/create.graphql
@@ -103,18 +107,31 @@ permissions:
     - name
     - description
 
-# Trigger
-- operation: Trigger.create
+# === Event
+- operation: Event.create
   authenticated: true
-  query: permissions/types/Trigger/create.graphql
-- operation: Trigger.read
+  query: permissions/types/Event/create.graphql
+- operation: Event.read
   authenticated: true
-  query: permissions/types/Trigger/read.graphql
-- operation: Trigger.update
-  authenticated: true
-  query: permissions/types/Trigger/update.graphql
+  query: permissions/types/Event/read.graphql
 
-# Project
+# === EthereumContractConnector
+- operation: EthereumContractConnector.read
+  authenticated: true
+  query: permissions/types/EthereumContractConnector/read.graphql
+
+# === Invitation
+- operation: Invitation.create
+  authenticated: true
+  query: permissions/types/Invitation/create.graphql
+- operation: Invitation.read
+  authenticated: true
+  query: permissions/types/Invitation/read.graphql
+
+# === Plan
+- operation: Plan.read
+
+# === Project
 - operation: Project.create
   authenticated: true
   query: permissions/types/Project/create.graphql
@@ -130,31 +147,7 @@ permissions:
   authenticated: true
   query: permissions/types/Project/delete.graphql
 
-# TaskLog
-- operation: TaskLog.read
-  authenticated: true
-  query: permissions/types/TaskLog/read.graphql
-
-# Event
-- operation: Event.create
-  authenticated: true
-  query: permissions/types/Event/create.graphql
-- operation: Event.read
-  authenticated: true
-  query: permissions/types/Event/read.graphql
-
-# Plan
-- operation: Plan.read
-
-# Invitation
-- operation: Invitation.create
-  authenticated: true
-  query: permissions/types/Invitation/create.graphql
-- operation: Invitation.read
-  authenticated: true
-  query: permissions/types/Invitation/read.graphql
-
-# Service
+# === Service
 - operation: Service.read
   fields:
     - id
@@ -164,37 +157,85 @@ permissions:
     - data
     - picture
 
-# TriggerOnContract
+# === TaskLog
+- operation: TaskLog.read
+  authenticated: true
+  query: permissions/types/TaskLog/read.graphql
+
+# === Trigger
+- operation: Trigger.create
+  authenticated: true
+  query: permissions/types/Trigger/create.graphql
+- operation: Trigger.read
+  authenticated: true
+  query: permissions/types/Trigger/read.graphql
+- operation: Trigger.update
+  authenticated: true
+  query: permissions/types/Trigger/update.graphql
+
+# === User permissions
+- operation: User.create
+- operation: User.read
+  authenticated: true
+  query: permissions/types/User/read.graphql
+- operation: User.read
+  fields:
+    - id
+
+
+# ========================================
+# ======= PERMISSION FOR RELATIONS =======
+# ========================================
+
+# === ConnectorOnTriggers
+- operation: ConnectorOnTriggers.connect
+  authenticated: true
+  # query: permissions/relations/ConnectorOnTriggers/connect.graphql TODO
+
+# === ConnectorOnProject
+- operation: ConnectorOnProject.connect
+  authenticated: true
+  # query: permissions/relations/ConnectorOnProject/connect.graphql TODO
+
+# === EthereumContractOnConnectors
+- operation: EthereumContractOnConnectors.connect
+  authenticated: true
+
+# === ConnectorOnContracts
+- operation: ConnectorOnContracts.connect
+  authenticated: true
+
+# === TriggerOnContract
 - operation: TriggerOnContract.connect
   authenticated: true
   query: permissions/relations/TriggerOnContract/connect.graphql
 
-# ProjectOnUser
+# === ProjectOnUser
 - operation: ProjectOnUser.connect
   authenticated: true
   query: permissions/relations/ProjectOnUser/connect.graphql
 
-# TriggerOnProject
+# === TriggerOnProject
 - operation: TriggerOnProject.connect
   authenticated: true
   query: permissions/relations/TriggerOnProject/connect.graphql
 
-# ProjectOnContract
+# === ProjectOnContract
 - operation: ProjectOnContract.connect
   authenticated: true
   query: permissions/relations/ProjectOnContract/connect.graphql
 
-# EventOnTrigger
+# === EventOnTrigger
 - operation: EventOnTrigger.connect
   authenticated: true
   query: permissions/relations/EventOnTrigger/connect.graphql
 
-# InvitationOnProject
+# === InvitationOnProject
 - operation: InvitationOnProject.connect
   authenticated: true
   query: permissions/relations/InvitationOnProject/connect.graphql
 
-# TriggerOnService
+# === TriggerOnService
 - operation: TriggerOnService.connect
   authenticated: true
   query: permissions/relations/TriggerOnService/connect.graphql
@@ -202,6 +243,12 @@ permissions:
   authenticated: true
   query: permissions/relations/TriggerOnService/connect.graphql
   
+
+# ======================
+# ======= TOKENS =======
+# ======================
+
+
 # Permanent Auth Token / Root Tokens
 rootTokens:
   - functions

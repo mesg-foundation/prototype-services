@@ -1,0 +1,18 @@
+{
+  SomeTriggerExists(filter: {
+    id: $triggerTrigger_id,
+    project: {
+      users_some: {
+        id: $user_id
+      }
+    }
+  })
+  SomeConnectorExists(filter: {
+    id: $connectorConnector_id,
+    project: {
+      users_some: {
+        id: $user_id
+      }
+    }
+  })
+}
