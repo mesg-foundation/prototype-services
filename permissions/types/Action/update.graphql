@@ -1,0 +1,12 @@
+{
+  SomeActionExists(
+    filter: {
+      id: $node_id,
+      project: {
+        users_some: {
+          id: $user_id
+        }
+      }
+    }
+  )
+}

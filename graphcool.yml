@@ -86,6 +86,9 @@ permissions:
 - operation: Action.create
   authenticated: true
   query: permissions/types/Action/create.graphql
+- operation: Action.update
+  authenticated: true
+  query: permissions/types/Action/update.graphql
 - operation: Action.read
   authenticated: true
   query: permissions/types/Action/read.graphql
