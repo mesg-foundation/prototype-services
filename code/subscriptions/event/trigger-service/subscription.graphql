@@ -24,9 +24,12 @@ subscription {
             }
           }
         }
-        serviceData
-        service {
-          endpoint
+        action {
+          service {
+            id
+            endpoint
+          }
+          data
         }
       }
     }

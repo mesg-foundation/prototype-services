@@ -40,7 +40,9 @@ const logResponse = (event, api) => response => {
 
 const connector = trigger => [
   'ethereumContract'
-].filter(x => !!trigger.connector[x])[0]
+]
+  .map(x => trigger.connector[x])
+  .filter(x => x)[0]
 
 module.exports = event => {
   const eventData = event.data.Event.node
@@ -49,10 +51,10 @@ module.exports = event => {
   const log = logResponse(eventData, api)
   return axios({
     method: 'POST',
-    url: eventData.trigger.service.endpoint,
+    url: eventData.trigger.action.service.endpoint,
     data: {
       url: `${process.env.DASHBOARD_URL}/triggers/${eventData.trigger.id}/${eventData.id}`,
-      meta: eventData.trigger.serviceData,
+      meta: eventData.trigger.action.data,
       payload: eventData.payload,
       transaction: {
         id: eventData.transactionId,
