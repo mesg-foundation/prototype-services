@@ -71,6 +71,8 @@ type Action implements Node {
 type Trigger implements Node {
   createdAt: DateTime!
   id: ID! @isUnique
+  title: String
+  description: String
   enable: Boolean @defaultValue(value: true)
   updatedAt: DateTime!
   connector: Connector! @relation(name: "ConnectorOnTriggers")
