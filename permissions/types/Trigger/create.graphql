@@ -1,7 +1,7 @@
 {
   SomeUserExists(
     filter: {
-      id: $user_id
+      id: $user_id,
       projects_some: {
         id: $input_projectId
       }
