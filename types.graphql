@@ -33,25 +33,54 @@ type Contract implements Node {
   public: Boolean! @defaultValue(value: true)
   abi: Json!
   project: Project @relation(name: "ProjectOnContract")
-  triggers: [Trigger!]! @relation(name: "TriggerOnContract")
+  connectors: [EthereumContractConnector!]! @relation(name: "ConnectorOnContracts")
   chain: CHAIN! @defaultValue(value: MAINNET)
   description: String
   name: String!
 }
 
+type EthereumContractConnector implements Node {
+  id: ID! @isUnique
+  connector: Connector @relation(name: "EthereumContractOnConnectors")
+  contract: Contract @relation(name: "ConnectorOnContracts")
+  eventName: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Connector implements Node {
+  id: ID! @isUnique
+  project: Project! @relation(name: "ConnectorOnProject")
+  ethereumContract: EthereumContractConnector @relation(name: "EthereumContractOnConnectors")
+  triggers: [Trigger!]! @relation(name: "ConnectorOnTriggers")
+  connectorType: CONNECTOR_TYPE! @defaultValue(value: ETHEREUM_CONTRACT)
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Action implements Node {
+  createdAt: DateTime!
+  id: ID! @isUnique
+  updatedAt: DateTime!
+  project: Project! @relation(name: "ActionOnProject")
+  service: Service @relation(name: "ServiceOnAction")
+  triggers: [Trigger!]! @relation(name: "ActionOnTriggers")
+  data: Json
+}
+
 type Trigger implements Node {
   createdAt: DateTime!
   id: ID! @isUnique
+  title: String
+  description: String
   enable: Boolean @defaultValue(value: true)
   updatedAt: DateTime!
-  contract: Contract @relation(name: "TriggerOnContract")
-  eventName: String!
-  project: Project @relation(name: "TriggerOnProject")
+  connector: Connector! @relation(name: "ConnectorOnTriggers")
+  project: Project! @relation(name: "TriggerOnProject")
   events: [Event!]! @relation(name: "EventOnTrigger")
   taskLogs: [TaskLog!]! @relation(name: "TastLogOnTrigger")
   notifications: [Notification!]! @relation(name: "NotificationOnTrigger")
-  service: Service @relation(name: "TriggerOnService")
-  serviceData: Json
+  action: Action! @relation(name: "ActionOnTriggers")
 }
 
 type Project implements Node {
@@ -62,6 +91,8 @@ type Project implements Node {
   updatedAt: DateTime!
   users: [User!]! @relation(name: "ProjectOnUser")
   triggers: [Trigger!]! @relation(name: "TriggerOnProject")
+  connectors: [Connector!]! @relation(name: "ConnectorOnProject")
+  actions: [Action!]! @relation(name: "ActionOnProject")
   invitations: [Invitation!]! @relation(name: "InvitationOnProject")
   plan: Plan @relation(name: "ProjectOnPlan")
   notifications: [Notification!]! @relation(name: "NotificationOnProject")
@@ -83,6 +114,11 @@ type Event implements Node {
   id: ID! @isUnique
   payload: Json!
   transactionId: String!
+  blockId: String!
+  from: String!
+  to: String!
+  value: Float!
+  fees: Float!
   updatedAt: DateTime!
   trigger: Trigger @relation(name: "EventOnTrigger")
   taskLogs: [TaskLog!]! @relation(name: "EventOnTaskLogs")
@@ -128,7 +164,7 @@ type Service implements Node {
   name: String!
   picture: String
   priority: Int @defaultValue(value: 9999)
-  triggers: [Trigger!]! @relation(name: "TriggerOnService")
+  actions: [Action!]! @relation(name: "ServiceOnAction")
   updatedAt: DateTime!
 }
 
@@ -146,4 +182,8 @@ enum CURRENCY {
 enum NOTIFICATION_KIND {
   TRIGGER_DISABLED
   TRIGGER_ERROR
+}
+
+enum CONNECTOR_TYPE {
+  ETHEREUM_CONTRACT
 }
