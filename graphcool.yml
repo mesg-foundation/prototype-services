@@ -134,6 +134,11 @@ permissions:
   authenticated: true
   query: permissions/types/EthereumContractConnector/read.graphql
 
+# === EthereumTransactionConnector
+- operation: EthereumTransactionConnector.read
+  authenticated: true
+  query: permissions/types/EthereumTransactionConnector/read.graphql
+
 # === Invitation
 - operation: Invitation.create
   authenticated: true
@@ -229,6 +234,10 @@ permissions:
 
 # === EthereumContractOnConnectors
 - operation: EthereumContractOnConnectors.connect
+  authenticated: true
+
+# === EthereumTransactionOnConnectors
+- operation: EthereumTransactionOnConnectors.connect
   authenticated: true
 
 # === ConnectorOnContracts
