@@ -117,8 +117,8 @@ type Event implements Node {
   blockId: String!
   from: String!
   to: String!
-  value: Float!
-  fees: Float!
+  value: String!
+  fees: String!
   updatedAt: DateTime!
   trigger: Trigger @relation(name: "EventOnTrigger")
   taskLogs: [TaskLog!]! @relation(name: "EventOnTaskLogs")
