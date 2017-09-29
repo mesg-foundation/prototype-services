@@ -34,7 +34,7 @@ type Contract implements Node {
   abi: Json!
   project: Project @relation(name: "ProjectOnContract")
   connectors: [EthereumContractConnector!]! @relation(name: "ConnectorOnContracts")
-  chain: CHAIN! @defaultValue(value: MAINNET)
+  chain: ETHEREUM_BLOCKCHAIN! @defaultValue(value: MAINNET)
   description: String
   name: String!
 }
@@ -48,10 +48,18 @@ type EthereumContractConnector implements Node {
   updatedAt: DateTime!
 }
 
+type EthereumTransactionConnector implements Node {
+  id: ID! @isUnique
+  connector: Connector @relation(name: "EthereumTransactionOnConnectors")
+  address: String!
+  chain: ETHEREUM_BLOCKCHAIN!
+}
+
 type Connector implements Node {
   id: ID! @isUnique
   project: Project! @relation(name: "ConnectorOnProject")
   ethereumContract: EthereumContractConnector @relation(name: "EthereumContractOnConnectors")
+  ethereumTransaction: EthereumTransactionConnector @relation(name: "EthereumTransactionOnConnectors")
   triggers: [Trigger!]! @relation(name: "ConnectorOnTriggers")
   connectorType: CONNECTOR_TYPE! @defaultValue(value: ETHEREUM_CONTRACT)
   createdAt: DateTime!
@@ -168,7 +176,7 @@ type Service implements Node {
   updatedAt: DateTime!
 }
 
-enum CHAIN {
+enum ETHEREUM_BLOCKCHAIN {
   HOMESTEAD
   MAINNET
   TESTNET
@@ -186,4 +194,5 @@ enum NOTIFICATION_KIND {
 
 enum CONNECTOR_TYPE {
   ETHEREUM_CONTRACT
+  ETHEREUM_TRANSACTION
 }
