@@ -22,6 +22,10 @@ subscription {
               chain
               name
             }
+          },
+          ethereumTransaction {
+            address
+            chain
           }
         }
         action {
