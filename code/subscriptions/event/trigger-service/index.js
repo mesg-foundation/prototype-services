@@ -39,7 +39,8 @@ const logResponse = (event, api) => response => {
 }
 
 const connector = trigger => [
-  'ethereumContract'
+  'ethereumContract',
+  'ethereumTransaction'
 ]
   .map(x => trigger.connector[x])
   .filter(x => x)[0]
