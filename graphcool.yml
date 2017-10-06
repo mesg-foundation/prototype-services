@@ -51,6 +51,7 @@ modules:
   plans: modules/plans/graphcool.yml
   notifications: modules/notifications/graphcool.yml
   project: modules/project/graphcool.yml
+  contracts: modules/contracts/graphcool.yml
 
 
 # Model/Relation permissions
@@ -70,23 +71,6 @@ permissions:
 - operation: Action.read
   authenticated: true
   query: permissions/types/Action/read.graphql
-
-# === Contract
-- operation: Contract.create
-  authenticated: true
-  query: permissions/types/Contract/create.graphql
-- operation: Contract.read
-  authenticated: true
-  query: permissions/types/Contract/read.graphql
-- operation: Contract.update
-  authenticated: true
-  query: permissions/types/Contract/update.graphql
-  fields:
-    - public
-    - abi
-    - chain
-    - name
-    - description
 
 # === Event
 - operation: Event.create
