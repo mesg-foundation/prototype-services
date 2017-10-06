@@ -61,21 +61,6 @@ type TaskLog implements Node {
   duration: Int @defaultValue(value: 0)
 }
 
-type Event implements Node {
-  createdAt: DateTime!
-  id: ID! @isUnique
-  payload: Json!
-  transactionId: String!
-  blockId: String!
-  from: String!
-  to: String!
-  value: String!
-  fees: String!
-  updatedAt: DateTime!
-  trigger: Trigger @relation(name: "EventOnTrigger")
-  taskLogs: [TaskLog!]! @relation(name: "EventOnTaskLogs")
-}
-
 enum ETHEREUM_BLOCKCHAIN {
   HOMESTEAD
   MAINNET

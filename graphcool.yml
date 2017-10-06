@@ -1,31 +1,7 @@
-# Welcome to Graphcool!
-#
-# This file is the main config file for your Graphcool Project.
-# It's very minimal at this point and uses default values.
-# We've included a hello world function here.
-# Just uncomment it and run `graphcool deploy`
-#
-# Check out some examples:
-#    github.com/graphcool/examples
-#
-# Happy Coding!
-
-
 # GraphQL types
 types: ./types.graphql
 
-
-# uncomment this:
-
 functions:
-  event-trigger-service:
-    type: subscription
-    query: ./code/subscriptions/event/trigger-service/subscription.graphql
-    handler:
-      code:
-        src: ./code/subscriptions/event/trigger-service/index.js
-        environment:
-          DASHBOARD_URL: ${env:DASHBOARD_URL}
   task-log-handle-error:
     type: subscription
     query: ./code/subscriptions/task-log/handle-error/subscription.graphql
@@ -52,6 +28,7 @@ modules:
   notifications: modules/notifications/graphcool.yml
   project: modules/project/graphcool.yml
   contracts: modules/contracts/graphcool.yml
+  events: modules/events/graphcool.yml
 
 
 # Model/Relation permissions
@@ -71,14 +48,6 @@ permissions:
 - operation: Action.read
   authenticated: true
   query: permissions/types/Action/read.graphql
-
-# === Event
-- operation: Event.create
-  authenticated: true
-  query: permissions/types/Event/create.graphql
-- operation: Event.read
-  authenticated: true
-  query: permissions/types/Event/read.graphql
 
 # === TaskLog
 - operation: TaskLog.read
