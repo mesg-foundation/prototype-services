@@ -50,6 +50,7 @@ modules:
   service: modules/service/graphcool.yml
   plans: modules/plans/graphcool.yml
   notifications: modules/notifications/graphcool.yml
+  project: modules/project/graphcool.yml
 
 
 # Model/Relation permissions
@@ -94,22 +95,6 @@ permissions:
 - operation: Event.read
   authenticated: true
   query: permissions/types/Event/read.graphql
-
-# === Project
-- operation: Project.create
-  authenticated: true
-  query: permissions/types/Project/create.graphql
-- operation: Project.read
-  authenticated: true
-  query: permissions/types/Project/read.graphql
-- operation: Project.update
-  authenticated: true
-  query: permissions/types/Project/update.graphql
-  fields:
-    - name
-- operation: Project.delete
-  authenticated: true
-  query: permissions/types/Project/delete.graphql
 
 # === TaskLog
 - operation: TaskLog.read

@@ -64,21 +64,6 @@ type Trigger implements Node {
   action: Action! @relation(name: "ActionOnTriggers")
 }
 
-type Project implements Node {
-  contracts: [Contract!]! @relation(name: "ProjectOnContract")
-  createdAt: DateTime!
-  id: ID! @isUnique
-  name: String!
-  updatedAt: DateTime!
-  users: [User!]! @relation(name: "ProjectOnUser")
-  triggers: [Trigger!]! @relation(name: "TriggerOnProject")
-  connectors: [Connector!]! @relation(name: "ConnectorOnProject")
-  actions: [Action!]! @relation(name: "ActionOnProject")
-  invitations: [Invitation!]! @relation(name: "InvitationOnProject")
-  plan: Plan @relation(name: "ProjectOnPlan")
-  notifications: [Notification!]! @relation(name: "NotificationOnProject")
-}
-
 type TaskLog implements Node {
   body: String
   code: String!
