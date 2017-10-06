@@ -26,14 +26,6 @@ functions:
         src: ./code/subscriptions/event/trigger-service/index.js
         environment:
           DASHBOARD_URL: ${env:DASHBOARD_URL}
-  notification-notify-team:
-    type: subscription
-    query: ./code/subscriptions/notification/notify-team/subscription.graphql
-    handler:
-      code:
-        src: ./code/subscriptions/notification/notify-team/index.js
-        environment:
-          SENDGRID_SECRET: ${env:SENDGRID_SECRET}
   task-log-handle-error:
     type: subscription
     query: ./code/subscriptions/task-log/handle-error/subscription.graphql
@@ -57,6 +49,7 @@ modules:
   blockchain-connectors: modules/blockchain-connectors/graphcool.yml
   service: modules/service/graphcool.yml
   plans: modules/plans/graphcool.yml
+  notifications: modules/notifications/graphcool.yml
 
 
 # Model/Relation permissions

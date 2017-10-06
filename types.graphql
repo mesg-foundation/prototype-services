@@ -105,23 +105,9 @@ type Event implements Node {
   taskLogs: [TaskLog!]! @relation(name: "EventOnTaskLogs")
 }
 
-type Notification implements Node {
-  createdAt: DateTime!
-  id: ID! @isUnique
-  kind: NOTIFICATION_KIND!
-  project: Project @relation(name: "NotificationOnProject")
-  trigger: Trigger @relation(name: "NotificationOnTrigger")
-  updatedAt: DateTime!
-}
-
 enum ETHEREUM_BLOCKCHAIN {
   HOMESTEAD
   MAINNET
   TESTNET
   KOVAN
-}
-
-enum NOTIFICATION_KIND {
-  TRIGGER_DISABLED
-  TRIGGER_ERROR
 }
