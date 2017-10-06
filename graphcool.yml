@@ -13,6 +13,7 @@ modules:
   contracts: app/contracts/graphcool.yml
   events: app/events/graphcool.yml
   logs: app/logs/graphcool.yml
+  actions: app/actions/graphcool.yml
 
 
 # Model/Relation permissions
@@ -21,17 +22,6 @@ permissions:
 # ====================================
 # ======= PERMISSION FOR TYPES =======
 # ====================================
-
-# === Action
-- operation: Action.create
-  authenticated: true
-  query: permissions/types/Action/create.graphql
-- operation: Action.update
-  authenticated: true
-  query: permissions/types/Action/update.graphql
-- operation: Action.read
-  authenticated: true
-  query: permissions/types/Action/read.graphql
 
 # === Trigger
 - operation: Trigger.create

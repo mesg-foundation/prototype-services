@@ -1,0 +1,12 @@
+types: ./types.graphql
+
+permissions:
+- operation: Action.create
+  authenticated: true
+  query: ./permissions/create.graphql
+- operation: Action.update
+  authenticated: true
+  query: ./permissions/update.graphql
+- operation: Action.read
+  authenticated: true
+  query: ./permissions/read.graphql
