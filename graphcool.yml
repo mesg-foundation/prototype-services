@@ -3,16 +3,16 @@ types: ./types.graphql
 
 # Graphcool modules
 modules: 
-  email-password: modules/email-password/graphcool.yml
-  invitation: modules/invitation/graphcool.yml
-  blockchain-connectors: modules/blockchain-connectors/graphcool.yml
-  service: modules/service/graphcool.yml
-  plans: modules/plans/graphcool.yml
-  notifications: modules/notifications/graphcool.yml
-  project: modules/project/graphcool.yml
-  contracts: modules/contracts/graphcool.yml
-  events: modules/events/graphcool.yml
-  logs: modules/logs/graphcool.yml
+  email-password: app/email-password/graphcool.yml
+  invitation: app/invitation/graphcool.yml
+  blockchain-connectors: app/blockchain-connectors/graphcool.yml
+  service: app/service/graphcool.yml
+  plans: app/plans/graphcool.yml
+  notifications: app/notifications/graphcool.yml
+  project: app/project/graphcool.yml
+  contracts: app/contracts/graphcool.yml
+  events: app/events/graphcool.yml
+  logs: app/logs/graphcool.yml
 
 
 # Model/Relation permissions
