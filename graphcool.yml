@@ -60,6 +60,7 @@ functions:
 modules: 
   email-password: modules/email-password/graphcool.yml
   invitation: modules/invitation/graphcool.yml
+  blockchain-connectors: modules/blockchain-connectors/graphcool.yml
 
 
 # Model/Relation permissions
@@ -79,17 +80,6 @@ permissions:
 - operation: Action.read
   authenticated: true
   query: permissions/types/Action/read.graphql
-
-# === Connector
-- operation: Connector.create
-  authenticated: true
-  query: permissions/types/Connector/create.graphql
-- operation: Connector.update
-  authenticated: true
-  query: permissions/types/Connector/update.graphql
-- operation: Connector.read
-  authenticated: true
-  query: permissions/types/Connector/read.graphql
 
 # === Contract
 - operation: Contract.create
@@ -115,16 +105,6 @@ permissions:
 - operation: Event.read
   authenticated: true
   query: permissions/types/Event/read.graphql
-
-# === EthereumContractConnector
-- operation: EthereumContractConnector.read
-  authenticated: true
-  query: permissions/types/EthereumContractConnector/read.graphql
-
-# === EthereumTransactionConnector
-- operation: EthereumTransactionConnector.read
-  authenticated: true
-  query: permissions/types/EthereumTransactionConnector/read.graphql
 
 # === Plan
 - operation: Plan.read
@@ -201,23 +181,10 @@ permissions:
   authenticated: true
   # query: ... TODO
 
-# === ConnectorOnTriggers
-- operation: ConnectorOnTriggers.connect
-  authenticated: true
-  # query: permissions/relations/ConnectorOnTriggers/connect.graphql TODO
-
 # === ConnectorOnProject
 - operation: ConnectorOnProject.connect
   authenticated: true
   # query: permissions/relations/ConnectorOnProject/connect.graphql TODO
-
-# === EthereumContractOnConnectors
-- operation: EthereumContractOnConnectors.connect
-  authenticated: true
-
-# === EthereumTransactionOnConnectors
-- operation: EthereumTransactionOnConnectors.connect
-  authenticated: true
 
 # === ConnectorOnContracts
 - operation: ConnectorOnContracts.connect
