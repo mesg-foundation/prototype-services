@@ -61,6 +61,7 @@ modules:
   email-password: modules/email-password/graphcool.yml
   invitation: modules/invitation/graphcool.yml
   blockchain-connectors: modules/blockchain-connectors/graphcool.yml
+  service: modules/service/graphcool.yml
 
 
 # Model/Relation permissions
@@ -124,16 +125,6 @@ permissions:
 - operation: Project.delete
   authenticated: true
   query: permissions/types/Project/delete.graphql
-
-# === Service
-- operation: Service.read
-  fields:
-    - id
-    - key
-    - name
-    - description
-    - data
-    - picture
 
 # === TaskLog
 - operation: TaskLog.read

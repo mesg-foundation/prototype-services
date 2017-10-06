@@ -127,20 +127,6 @@ type Notification implements Node {
   updatedAt: DateTime!
 }
 
-type Service implements Node {
-  createdAt: DateTime!
-  data: Json
-  description: String
-  endpoint: String! @isUnique
-  id: ID! @isUnique
-  key: String! @isUnique
-  name: String!
-  picture: String
-  priority: Int @defaultValue(value: 9999)
-  actions: [Action!]! @relation(name: "ServiceOnAction")
-  updatedAt: DateTime!
-}
-
 enum ETHEREUM_BLOCKCHAIN {
   HOMESTEAD
   MAINNET
