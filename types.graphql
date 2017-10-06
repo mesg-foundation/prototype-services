@@ -145,14 +145,6 @@ type Plan implements Node {
   projects: [Project!]! @relation(name: "ProjectOnPlan")
 }
 
-type Invitation implements Node {
-  createdAt: DateTime!
-  email: String!
-  id: ID! @isUnique
-  project: Project @relation(name: "InvitationOnProject")
-  updatedAt: DateTime!
-}
-
 type Notification implements Node {
   createdAt: DateTime!
   id: ID! @isUnique

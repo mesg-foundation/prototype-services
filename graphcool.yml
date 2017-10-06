@@ -26,20 +26,6 @@ functions:
         src: ./code/subscriptions/event/trigger-service/index.js
         environment:
           DASHBOARD_URL: ${env:DASHBOARD_URL}
-  invitation-send-email:
-    type: subscription
-    query: ./code/subscriptions/invitation/send-email/subscription.graphql
-    handler:
-      code:
-        src: ./code/subscriptions/invitation/send-email/index.js
-        environment:
-          SENDGRID_SECRET: ${env:SENDGRID_SECRET}
-  invitation-add-to-project:
-    type: subscription
-    query: ./code/subscriptions/invitation/add-to-project/subscription.graphql
-    handler:
-      code:
-        src: ./code/subscriptions/invitation/add-to-project/index.js
   notification-notify-team:
     type: subscription
     query: ./code/subscriptions/notification/notify-team/subscription.graphql
@@ -73,6 +59,7 @@ functions:
 # Graphcool modules
 modules: 
   email-password: modules/email-password/graphcool.yml
+  invitation: modules/invitation/graphcool.yml
 
 
 # Model/Relation permissions
@@ -138,14 +125,6 @@ permissions:
 - operation: EthereumTransactionConnector.read
   authenticated: true
   query: permissions/types/EthereumTransactionConnector/read.graphql
-
-# === Invitation
-- operation: Invitation.create
-  authenticated: true
-  query: permissions/types/Invitation/create.graphql
-- operation: Invitation.read
-  authenticated: true
-  query: permissions/types/Invitation/read.graphql
 
 # === Plan
 - operation: Plan.read
@@ -268,11 +247,6 @@ permissions:
 - operation: EventOnTrigger.connect
   authenticated: true
   query: permissions/relations/EventOnTrigger/connect.graphql
-
-# === InvitationOnProject
-- operation: InvitationOnProject.connect
-  authenticated: true
-  query: permissions/relations/InvitationOnProject/connect.graphql
 
 # === TriggerOnService
 - operation: TriggerOnService.connect
