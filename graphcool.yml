@@ -15,30 +15,10 @@ modules:
   logs: app/logs/graphcool.yml
   actions: app/actions/graphcool.yml
   users: app/users/graphcool.yml
+  triggers: app/triggers/graphcool.yml
 
 
-# Model/Relation permissions
 permissions:
-
-# ====================================
-# ======= PERMISSION FOR TYPES =======
-# ====================================
-
-# === Trigger
-- operation: Trigger.create
-  authenticated: true
-  query: permissions/types/Trigger/create.graphql
-- operation: Trigger.read
-  authenticated: true
-  query: permissions/types/Trigger/read.graphql
-- operation: Trigger.update
-  authenticated: true
-  query: permissions/types/Trigger/update.graphql
-
-# ========================================
-# ======= PERMISSION FOR RELATIONS =======
-# ========================================
-
 - operation: ConnectorOnTriggers.connect
   authenticated: true
   # query: ... TODO
@@ -58,7 +38,7 @@ permissions:
 # === ConnectorOnProject
 - operation: ConnectorOnProject.connect
   authenticated: true
-  # query: permissions/relations/ConnectorOnProject/connect.graphql TODO
+  # query: ./permissions/ConnectorOnProject/connect.graphql TODO
 
 # === ConnectorOnContracts
 - operation: ConnectorOnContracts.connect
@@ -67,35 +47,35 @@ permissions:
 # === TriggerOnContract
 - operation: TriggerOnContract.connect
   authenticated: true
-  query: permissions/relations/TriggerOnContract/connect.graphql
+  query: ./permissions/TriggerOnContract/connect.graphql
 
 # === ProjectOnUser
 - operation: ProjectOnUser.connect
   authenticated: true
-  query: permissions/relations/ProjectOnUser/connect.graphql
+  query: ./permissions/ProjectOnUser/connect.graphql
 
 # === TriggerOnProject
 - operation: TriggerOnProject.connect
   authenticated: true
-  query: permissions/relations/TriggerOnProject/connect.graphql
+  query: ./permissions/TriggerOnProject/connect.graphql
 
 # === ProjectOnContract
 - operation: ProjectOnContract.connect
   authenticated: true
-  query: permissions/relations/ProjectOnContract/connect.graphql
+  query: ./permissions/ProjectOnContract/connect.graphql
 
 # === EventOnTrigger
 - operation: EventOnTrigger.connect
   authenticated: true
-  query: permissions/relations/EventOnTrigger/connect.graphql
+  query: ./permissions/EventOnTrigger/connect.graphql
 
 # === TriggerOnService
 - operation: TriggerOnService.connect
   authenticated: true
-  query: permissions/relations/TriggerOnService/connect.graphql
+  query: ./permissions/TriggerOnService/connect.graphql
 - operation: TriggerOnService.disconnect
   authenticated: true
-  query: permissions/relations/TriggerOnService/connect.graphql
+  query: ./permissions/TriggerOnService/connect.graphql
   
 
 # ======================
