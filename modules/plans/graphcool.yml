@@ -1,0 +1,12 @@
+types: ./types.graphql
+
+functions:
+  project-assign-plan:
+    type: subscription
+    query: ./functions/assign-plan/subscription.graphql
+    handler:
+      code:
+        src: ./functions/assign-plan/index.js
+        
+permissions:
+- operation: Plan.read

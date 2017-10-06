@@ -1,0 +1,16 @@
+type Plan implements Node {
+  createdAt: DateTime!
+  currency: CURRENCY! @defaultValue(value: USD)
+  id: ID! @isUnique
+  price: Int! @isUnique
+  title: String! @isUnique
+  updatedAt: DateTime!
+  contracts: Int
+  executions: Int
+  members: Int
+  projects: [Project!]! @relation(name: "ProjectOnPlan")
+}
+
+enum CURRENCY {
+  USD
+}

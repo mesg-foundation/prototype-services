@@ -34,12 +34,6 @@ functions:
         src: ./code/subscriptions/notification/notify-team/index.js
         environment:
           SENDGRID_SECRET: ${env:SENDGRID_SECRET}
-  project-assign-plan:
-    type: subscription
-    query: ./code/subscriptions/project/assign-plan/subscription.graphql
-    handler:
-      code:
-        src: ./code/subscriptions/project/assign-plan/index.js
   task-log-handle-error:
     type: subscription
     query: ./code/subscriptions/task-log/handle-error/subscription.graphql
@@ -62,6 +56,7 @@ modules:
   invitation: modules/invitation/graphcool.yml
   blockchain-connectors: modules/blockchain-connectors/graphcool.yml
   service: modules/service/graphcool.yml
+  plans: modules/plans/graphcool.yml
 
 
 # Model/Relation permissions
@@ -106,9 +101,6 @@ permissions:
 - operation: Event.read
   authenticated: true
   query: permissions/types/Event/read.graphql
-
-# === Plan
-- operation: Plan.read
 
 # === Project
 - operation: Project.create
