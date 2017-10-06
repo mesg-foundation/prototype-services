@@ -50,17 +50,6 @@ type Trigger implements Node {
   action: Action! @relation(name: "ActionOnTriggers")
 }
 
-type TaskLog implements Node {
-  body: String
-  code: String!
-  createdAt: DateTime!
-  id: ID! @isUnique
-  updatedAt: DateTime!
-  trigger: Trigger @relation(name: "TastLogOnTrigger")
-  event: Event @relation(name: "EventOnTaskLogs")
-  duration: Int @defaultValue(value: 0)
-}
-
 enum ETHEREUM_BLOCKCHAIN {
   HOMESTEAD
   MAINNET
