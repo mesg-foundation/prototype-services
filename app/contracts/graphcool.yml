@@ -1,0 +1,18 @@
+types: ./types.graphql
+
+permissions:
+- operation: Contract.create
+  authenticated: true
+  query: permissions/create.graphql
+- operation: Contract.read
+  authenticated: true
+  query: permissions/read.graphql
+- operation: Contract.update
+  authenticated: true
+  query: permissions/update.graphql
+  fields:
+    - public
+    - abi
+    - chain
+    - name
+    - description

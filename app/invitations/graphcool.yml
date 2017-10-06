@@ -1,0 +1,28 @@
+types: ./types.graphql
+
+functions:
+  invitation-send-email:
+    type: subscription
+    query: ./functions/send-email/subscription.graphql
+    handler:
+      code:
+        src: ./functions/send-email/index.js
+        environment:
+          SENDGRID_SECRET: ${env:SENDGRID_SECRET}
+  invitation-add-to-project:
+    type: subscription
+    query: ./functions/add-to-project/subscription.graphql
+    handler:
+      code:
+        src: ./functions/add-to-project/index.js
+        
+permissions:
+- operation: Invitation.create
+  authenticated: true
+  query: ./permissions/create.graphql
+- operation: Invitation.read
+  authenticated: true
+  query: ./permissions/read.graphql
+- operation: InvitationOnProject.connect
+  authenticated: true
+  query: ./permissions/connect.graphql

@@ -1,0 +1,31 @@
+type Connector implements Node {
+  id: ID! @isUnique
+  project: Project! @relation(name: "ConnectorOnProject")
+  ethereumContract: EthereumContractConnector @relation(name: "EthereumContractOnConnectors")
+  ethereumTransaction: EthereumTransactionConnector @relation(name: "EthereumTransactionOnConnectors")
+  triggers: [Trigger!]! @relation(name: "ConnectorOnTriggers")
+  connectorType: CONNECTOR_TYPE! @defaultValue(value: ETHEREUM_CONTRACT)
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+enum CONNECTOR_TYPE {
+  ETHEREUM_CONTRACT
+  ETHEREUM_TRANSACTION
+}
+
+type EthereumContractConnector implements Node {
+  id: ID! @isUnique
+  connector: Connector @relation(name: "EthereumContractOnConnectors")
+  contract: Contract @relation(name: "ConnectorOnContracts")
+  eventName: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type EthereumTransactionConnector implements Node {
+  id: ID! @isUnique
+  connector: Connector @relation(name: "EthereumTransactionOnConnectors")
+  address: String!
+  chain: ETHEREUM_BLOCKCHAIN!
+}
