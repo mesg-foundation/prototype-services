@@ -1,5 +1,21 @@
 types: ./types.graphql
 
+functions:
+  action-data-validation-on-update:
+    type: operationBefore
+    operation: Action.update
+    schema: ./functions/validate-data/schema.graphql
+    handler:
+      code:
+        src: ./functions/validate-data/index.js
+  action-data-validation-on-create:
+    type: operationBefore
+    operation: Action.create
+    schema: ./functions/validate-data/schema.graphql
+    handler:
+      code:
+        src: ./functions/validate-data/index.js
+
 permissions:
 - operation: Action.create
   authenticated: true

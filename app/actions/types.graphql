@@ -5,5 +5,5 @@ type Action implements Node {
   project: Project! @relation(name: "ActionOnProject")
   service: Service @relation(name: "ServiceOnAction")
   triggers: [Trigger!]! @relation(name: "ActionOnTriggers")
-  data: Json
+  data: Json!
 }

@@ -1,0 +1,4 @@
+type ActionInput {
+  serviceId: ID!
+  data: JSON!
+}
