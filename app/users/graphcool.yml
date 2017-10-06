@@ -1,0 +1,10 @@
+types: ./types.graphql
+
+permissions:
+- operation: User.create
+- operation: User.read
+  authenticated: true
+  query: ./permissions/read.graphql
+- operation: User.read
+  fields:
+    - id

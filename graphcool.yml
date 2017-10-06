@@ -14,6 +14,7 @@ modules:
   events: app/events/graphcool.yml
   logs: app/logs/graphcool.yml
   actions: app/actions/graphcool.yml
+  users: app/users/graphcool.yml
 
 
 # Model/Relation permissions
@@ -33,16 +34,6 @@ permissions:
 - operation: Trigger.update
   authenticated: true
   query: permissions/types/Trigger/update.graphql
-
-# === User permissions
-- operation: User.create
-- operation: User.read
-  authenticated: true
-  query: permissions/types/User/read.graphql
-- operation: User.read
-  fields:
-    - id
-
 
 # ========================================
 # ======= PERMISSION FOR RELATIONS =======

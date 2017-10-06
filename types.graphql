@@ -1,19 +1,3 @@
-# This file contains the GraphQL Types
-
-# All types need to have the three fields id, updatedAt and createdAt like this:
-
-type User implements Node {
-  createdAt: DateTime!
-  email: String @isUnique
-  id: ID! @isUnique
-  password: String
-  updatedAt: DateTime!
-  projects: [Project!]! @relation(name: "ProjectOnUser")
-}
-
-
-# Graphcool has one special type, the File type:
-
 # type File implements Node {
 #   contentType: String!
 #   createdAt: DateTime!
