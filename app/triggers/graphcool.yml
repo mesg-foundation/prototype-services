@@ -6,7 +6,10 @@ permissions:
   query: ./permissions/create.graphql
 - operation: Trigger.read
   authenticated: true
-  query: ./permissions/read.graphql
+  query: ./permissions/sameProject.graphql
 - operation: Trigger.update
   authenticated: true
-  query: ./permissions/update.graphql
+  query: ./permissions/sameProject.graphql
+- operation: Trigger.delete
+  authenticated: true
+  query: ./permissions/sameProject.graphql
