@@ -43,11 +43,6 @@ permissions:
 - operation: ConnectorOnContracts.connect
   authenticated: true
 
-# === TriggerOnContract
-- operation: TriggerOnContract.connect
-  authenticated: true
-  query: ./permissions/TriggerOnContract/connect.graphql
-
 # === ProjectOnUser
 - operation: ProjectOnUser.connect
   authenticated: true
@@ -66,16 +61,7 @@ permissions:
 # === EventOnTrigger
 - operation: EventOnTrigger.connect
   authenticated: true
-  query: ./permissions/EventOnTrigger/connect.graphql
-
-# === TriggerOnService
-- operation: TriggerOnService.connect
-  authenticated: true
-  query: ./permissions/TriggerOnService/connect.graphql
-- operation: TriggerOnService.disconnect
-  authenticated: true
-  query: ./permissions/TriggerOnService/connect.graphql
-  
+  query: ./permissions/EventOnTrigger/connect.graphql  
 
 # ======================
 # ======= TOKENS =======
