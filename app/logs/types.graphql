@@ -1,4 +1,4 @@
-type TaskLog implements Node {
+type TaskLog @model {
   body: String
   code: String!
   createdAt: DateTime!

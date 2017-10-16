@@ -1,4 +1,4 @@
-type Contract implements Node {
+type Contract @model {
   address: String!
   createdAt: DateTime!
   id: ID! @isUnique

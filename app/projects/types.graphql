@@ -1,4 +1,4 @@
-type Project implements Node {
+type Project @model {
   contracts: [Contract!]! @relation(name: "ProjectOnContract")
   createdAt: DateTime!
   id: ID! @isUnique

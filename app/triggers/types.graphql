@@ -1,4 +1,4 @@
-type Trigger implements Node {
+type Trigger @model {
   createdAt: DateTime!
   id: ID! @isUnique
   title: String

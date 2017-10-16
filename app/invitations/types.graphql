@@ -1,4 +1,4 @@
-type Invitation implements Node {
+type Invitation @model {
   createdAt: DateTime!
   email: String!
   id: ID! @isUnique

@@ -1,4 +1,4 @@
-type Notification implements Node {
+type Notification @model {
   createdAt: DateTime!
   id: ID! @isUnique
   kind: NOTIFICATION_KIND!

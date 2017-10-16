@@ -1,4 +1,4 @@
-type Event implements Node {
+type Event @model {
   createdAt: DateTime!
   id: ID! @isUnique
   payload: Json!

@@ -1,4 +1,4 @@
-type Plan implements Node {
+type Plan @model {
   createdAt: DateTime!
   currency: CURRENCY! @defaultValue(value: USD)
   id: ID! @isUnique

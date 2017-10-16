@@ -1,4 +1,4 @@
-type Connector implements Node {
+type Connector @model {
   id: ID! @isUnique
   project: Project! @relation(name: "ConnectorOnProject")
   ethereumContract: EthereumContractConnector @relation(name: "EthereumContractOnConnectors")
@@ -14,7 +14,7 @@ enum CONNECTOR_TYPE {
   ETHEREUM_TRANSACTION
 }
 
-type EthereumContractConnector implements Node {
+type EthereumContractConnector @model {
   id: ID! @isUnique
   connector: Connector @relation(name: "EthereumContractOnConnectors")
   contract: Contract @relation(name: "ConnectorOnContracts")
@@ -23,7 +23,7 @@ type EthereumContractConnector implements Node {
   updatedAt: DateTime!
 }
 
-type EthereumTransactionConnector implements Node {
+type EthereumTransactionConnector @model {
   id: ID! @isUnique
   connector: Connector @relation(name: "EthereumTransactionOnConnectors")
   address: String!

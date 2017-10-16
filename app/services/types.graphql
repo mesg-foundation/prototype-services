@@ -1,4 +1,4 @@
-type Service implements Node {
+type Service @model {
   createdAt: DateTime!
   data: Json
   description: String
