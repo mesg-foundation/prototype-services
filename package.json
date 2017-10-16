@@ -7,6 +7,8 @@
     "type": "git"
   },
   "scripts": {
+    "start": "graphcool local up",
+    "stop": "graphcool local stop",
     "db:seed": "node db/seed",
     "deploy:dev": "graphcool deploy --env dev",
     "deploy:dev:force": "graphcool deploy --env dev --force",
