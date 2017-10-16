@@ -1,4 +1,6 @@
-default: dev
-environments:
-  dev: cj7r0r8d10gk801492n12dv4a
-  prod: cj7ri5z8d0x5m0149sskbwe15
+targets:
+  dev: shared-eu-west-1/cj7r0r8d10gk801492n12dv4a
+  prod: shared-eu-west-1/cj7ri5z8d0x5m0149sskbwe15
+  default: dev
+  local: local/cj8qs7zou00050165jd1nwwau
+clusters: {}
