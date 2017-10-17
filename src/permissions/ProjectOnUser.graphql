@@ -1,0 +1,3 @@
+query connect($user_id: ID, $usersUser_id: ID) {
+  SomeUserExists(filter: {AND: [{id: $user_id}, {id: $usersUser_id}]})
+}

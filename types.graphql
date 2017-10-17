@@ -1,35 +1,3 @@
-# type File implements Node {
-#   contentType: String!
-#   createdAt: DateTime!
-#   id: ID! @isUnique
-#   name: String!
-#   secret: String! @isUnique
-#   size: Int!
-#   updatedAt: DateTime!
-#   url: String! @isUnique
-# }
-
-type Action @model {
-  createdAt: DateTime!
-  id: ID! @isUnique
-  updatedAt: DateTime!
-  project: Project! @relation(name: "ActionOnProject")
-  service: Service @relation(name: "ServiceOnAction")
-  triggers: [Trigger!]! @relation(name: "ActionOnTriggers")
-  data: Json!
-}
-
-type Connector @model {
-  id: ID! @isUnique
-  project: Project! @relation(name: "ConnectorOnProject")
-  ethereumContract: EthereumContractConnector @relation(name: "EthereumContractOnConnectors")
-  ethereumTransaction: EthereumTransactionConnector @relation(name: "EthereumTransactionOnConnectors")
-  triggers: [Trigger!]! @relation(name: "ConnectorOnTriggers")
-  connectorType: CONNECTOR_TYPE! @defaultValue(value: ETHEREUM_CONTRACT)
-  createdAt: DateTime!
-  updatedAt: DateTime!
-}
-
 type Contract @model {
   address: String!
   createdAt: DateTime!
@@ -42,22 +10,6 @@ type Contract @model {
   chain: ETHEREUM_BLOCKCHAIN! @defaultValue(value: MAINNET)
   description: String
   name: String!
-}
-
-type EthereumContractConnector @model {
-  id: ID! @isUnique
-  connector: Connector @relation(name: "EthereumContractOnConnectors")
-  contract: Contract @relation(name: "ConnectorOnContracts")
-  eventName: String!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-}
-
-type EthereumTransactionConnector @model {
-  id: ID! @isUnique
-  connector: Connector @relation(name: "EthereumTransactionOnConnectors")
-  address: String!
-  chain: ETHEREUM_BLOCKCHAIN!
 }
 
 type Event @model {
@@ -169,13 +121,39 @@ type User @model {
   projects: [Project!]! @relation(name: "ProjectOnUser")
 }
 
+enum CURRENCY {
+  USD
+}
+
+enum NOTIFICATION_KIND {
+  TRIGGER_DISABLED
+  TRIGGER_ERROR
+}
+
+type Action @model {
+  createdAt: DateTime!
+  id: ID! @isUnique
+  updatedAt: DateTime!
+  project: Project! @relation(name: "ActionOnProject")
+  service: Service @relation(name: "ServiceOnAction")
+  triggers: [Trigger!]! @relation(name: "ActionOnTriggers")
+  data: Json!
+}
+
 enum CONNECTOR_TYPE {
   ETHEREUM_CONTRACT
   ETHEREUM_TRANSACTION
 }
 
-enum CURRENCY {
-  USD
+type Connector @model {
+  id: ID! @isUnique
+  project: Project! @relation(name: "ConnectorOnProject")
+  ethereumContract: EthereumContractConnector @relation(name: "EthereumContractOnConnectors")
+  ethereumTransaction: EthereumTransactionConnector @relation(name: "EthereumTransactionOnConnectors")
+  triggers: [Trigger!]! @relation(name: "ConnectorOnTriggers")
+  connectorType: CONNECTOR_TYPE! @defaultValue(value: ETHEREUM_CONTRACT)
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 enum ETHEREUM_BLOCKCHAIN {
@@ -185,7 +163,18 @@ enum ETHEREUM_BLOCKCHAIN {
   KOVAN
 }
 
-enum NOTIFICATION_KIND {
-  TRIGGER_DISABLED
-  TRIGGER_ERROR
+type EthereumContractConnector @model {
+  id: ID! @isUnique
+  connector: Connector @relation(name: "EthereumContractOnConnectors")
+  contract: Contract @relation(name: "ConnectorOnContracts")
+  eventName: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type EthereumTransactionConnector @model {
+  id: ID! @isUnique
+  connector: Connector @relation(name: "EthereumTransactionOnConnectors")
+  address: String!
+  chain: ETHEREUM_BLOCKCHAIN!
 }

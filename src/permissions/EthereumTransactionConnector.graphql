@@ -1,0 +1,3 @@
+query read($node_id: ID) {
+  SomeEthereumTransactionConnectorExists(filter: {id: $node_id, connector: {project: {users_some: {id: $user_id}}}})
+}
