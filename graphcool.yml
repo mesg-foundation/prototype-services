@@ -208,3 +208,4 @@ rootTokens:
 - functions
 - signup
 - authenticate
+- logged-in-user
