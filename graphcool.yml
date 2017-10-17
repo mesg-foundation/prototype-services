@@ -18,26 +18,24 @@ functions:
         src: src/functions/notify-on-trigger-error/index.js
     type: subscription
     query: src/functions/notify-on-trigger-error/subscription.graphql
-  # TODO Wait for https://github.com/graphcool/graphcool/issues/818 to be fixed
-  # validate-action-data-on-create:
-  #   handler:
-  #     code:
-  #       src: src/functions/validate-action-data/index.js
-  #   type: operationBefore
-  #   operation: Action.create
+  validate-action-data-on-create:
+    handler:
+      code:
+        src: src/functions/validate-action-data/index.js
+    type: operationBefore
+    operation: Action.create
   notify-team:
     handler:
       code:
         src: src/functions/notify-team/index.js
     type: subscription
     query: src/functions/notify-team/subscription.graphql
-  # TODO Wait for https://github.com/graphcool/graphcool/issues/818 to be fixed
-  # validate-action-data-on-update:
-  #   handler:
-  #     code:
-  #       src: src/functions/validate-action-data/index.js
-  #   type: operationBefore
-  #   operation: Action.update
+  validate-action-data-on-update:
+    handler:
+      code:
+        src: src/functions/validate-action-data/index.js
+    type: operationBefore
+    operation: Action.update
   invitation-send-email:
     handler:
       code:
