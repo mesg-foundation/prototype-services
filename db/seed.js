@@ -11,7 +11,7 @@ if (!projectId || !token) {
   process.exit(0)
 }
 
-const client = new GraphQLClient(`https://api.graph.cool/simple/v1/${projectId}`, {
+const client = new GraphQLClient(`http://localhost:60000/simple/v1/${projectId}`, {
   headers: {
     'Authorization': `Bearer ${token}`
   }
@@ -52,11 +52,13 @@ const transformPayload = (type, payload) => {
 
 const data = type => require(`./all${type}s.json`).data[`all${type}s`]
 
-Promise.all([
-  'Plan',
-  'Service'
-]
-  .map(type => Promise.all(data(type)
+const deleteAll = async type => {
+  const ids = (await client.request(`query { all${type}s { id } }`))[`all${type}s`]
+  return Promise.all(ids.map(({ id }) => client.request(`mutation { delete${type}(id: "${id}") { id } }`)))
+}
+
+const addAll = async type => {
+  return Promise.all(data(type)
     .map(x => client.request(`mutation {
       create${type}(
         ${transformPayload(type, x)}
@@ -64,6 +66,12 @@ Promise.all([
         id
       }
     }`)))
-  )
-)
-  .then(res => console.log(`${res.reduce((acc, x) => x.length + acc, 0)} data added`))
+}
+
+[
+  'Plan',
+  'Service'
+].forEach(async type => {
+  await deleteAll(type)
+  await addAll(type)
+})
