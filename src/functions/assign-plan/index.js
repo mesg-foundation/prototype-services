@@ -26,7 +26,7 @@ module.exports = event => {
   
   if (project.plan && project.plan.id) { return Promise.resolve({ error: 'This project already have a plan' }) }
   
-  const api = fromEvent(event).api('simple/v1')
+  const api = fromEvent(event, { token: event.context.graphcool.rootToken }).api('simple/v1')
   return api.request(freePlanQuery())
     .then(x => x.allPlans[0].id)
     .then(x => api.request(assignPlanQuery(project.id, x)))

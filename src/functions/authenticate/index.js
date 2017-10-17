@@ -9,13 +9,10 @@ function getGraphcoolUser(api, email) {
         password
       }
     }`)
-    .then((userQueryResult) => {
-      if (userQueryResult.error) {
-        return Promise.reject(userQueryResult.error)
-      } else {
-        return userQueryResult.User
-      }
-    })
+    .then(userQueryResult => userQueryResult.error
+      ? Promise.reject(userQueryResult.error)
+      : userQueryResult.User
+    )
 }
 
 module.exports = function(event) {
@@ -26,19 +23,19 @@ module.exports = function(event) {
 
   const email = event.data.email
   const password = event.data.password
-  const graphcool = fromEvent(event)
+  const graphcool = fromEvent(event, { token: event.context.graphcool.rootToken })
   const api = graphcool.api('simple/v1')
   return getGraphcoolUser(api, email)
     .then(graphcoolUser => graphcoolUser === null
       ? Promise.reject('Invalid Credentials')
       : bcrypt.compare(password, graphcoolUser.password)
-          .then(passwordCorrect => passwordCorrect ? graphcoolUser.id : Promise.reject('Invalid Credentials'))
-          .then(graphcoolUserId => graphcool.generateAuthToken(graphcoolUserId, 'User'))
-          .then(token => ({
-            data: {
-              token
-            }
-          }))
+        .then(passwordCorrect => passwordCorrect ? graphcoolUser.id : Promise.reject('Invalid Credentials'))
+        .then(graphcoolUserId => graphcool.generateNodeToken(graphcoolUserId, 'User'))
+        .then(token => ({
+          data: {
+            token
+          }
+        }))
     )
-    .catch(error => ({ error }))
+    .catch(error => ({ error: error.message || error }))
 }

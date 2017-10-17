@@ -42,7 +42,7 @@ const errorLimitReached = maxLimit => value => value >= maxLimit
 module.exports = event => {
   const trigger = event.data.TaskLog.node.trigger
   const projectId = trigger.project.id
-  const api = fromEvent(event).api('simple/v1')
+  const api = fromEvent(event, { token: event.context.graphcool.rootToken }).api('simple/v1')
   return api.request(createQuery(
     projectId,
     trigger.id,

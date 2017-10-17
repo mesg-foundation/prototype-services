@@ -22,10 +22,10 @@ module.exports = function loggedInUser(event) {
   }
 
   const userId = event.context.auth.nodeId
-  const graphcool = fromEvent(event)
+  const graphcool = fromEvent(event, { token: event.context.graphcool.rootToken })
   const api = graphcool.api('simple/v1')
 
   return getUser(api, userId)
     .then(user => user ? { data: user } : Promise.reject(`No user with id ${userId}`))
-    .catch(error => ({ error }))
+    .catch(error => ({ error: error.message || error }))
 }

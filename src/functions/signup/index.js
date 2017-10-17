@@ -41,7 +41,7 @@ module.exports = function(event) {
 
   const email = event.data.email
   const password = event.data.password
-  const graphcool = fromEvent(event)
+  const graphcool = fromEvent(event, { token: event.context.graphcool.rootToken })
   const api = graphcool.api('simple/v1')
   const SALT_ROUNDS = 10
 
@@ -51,8 +51,7 @@ module.exports = function(event) {
       ? { error: 'Email already in use' }
       : bcrypt.hash(password, SALT_ROUNDS)
         .then(hash => createGraphcoolUser(api, email, hash))
-        .then(graphcoolUserId => graphcool
-          .generateAuthToken(graphcoolUserId, 'User')
+        .then(graphcoolUserId => graphcool.generateNodeToken(graphcoolUserId, 'User')
           .then(token => ({
             data: {
               id: graphcoolUserId,
@@ -60,5 +59,5 @@ module.exports = function(event) {
             }
           })))
     )
-    .catch(error => ({ error }))
+    .catch(error => ({ error: error.message || error }))
 }

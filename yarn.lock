@@ -14,10 +14,6 @@
   version "8.0.34"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.34.tgz#55f801fa2ddb2a40dd6dfc15ecfe1dde9c129fe9"
 
-"@types/node@^7.0.14":
-  version "7.0.44"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-7.0.44.tgz#20422b3dada536f35bf318ac3e24b8c48200803d"
-
 abbrev@1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.0.tgz#d0554c2256636e2f56e7c2e5ad183f859428d81f"
@@ -110,6 +106,30 @@ anymatch@^1.3.0:
   dependencies:
     micromatch "^2.1.5"
     normalize-path "^2.0.0"
+
+apollo-fetch@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/apollo-fetch/-/apollo-fetch-0.6.0.tgz#aae9b28c117af344b091ec8ba4d1a5aa0474dc5d"
+  dependencies:
+    isomorphic-fetch "^2.2.1"
+
+apollo-link-http@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/apollo-link-http/-/apollo-link-http-0.7.0.tgz#cf75e9e2537d785deefff2cd1ae2ff0dc1c88300"
+  dependencies:
+    apollo-fetch "^0.6.0"
+    graphql "^0.11.0"
+
+apollo-link@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/apollo-link/-/apollo-link-0.8.0.tgz#efce6b35ae9ea5f6966a87054ba4893a5b6d960a"
+  dependencies:
+    apollo-utilities "^0.2.0-beta.0"
+    zen-observable "^0.6.0"
+
+apollo-utilities@^0.2.0-beta.0:
+  version "0.2.0-rc.0"
+  resolved "https://registry.yarnpkg.com/apollo-utilities/-/apollo-utilities-0.2.0-rc.0.tgz#5ac93a839c5688e8f655dc7d5789a5d878f4351f"
 
 aproba@^1.0.3:
   version "1.2.0"
@@ -651,6 +671,10 @@ delegates@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/delegates/-/delegates-1.0.0.tgz#84c6e159b81904fdca59a0ef44cd870d31250f9a"
 
+deprecated-decorator@^0.1.6:
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/deprecated-decorator/-/deprecated-decorator-0.1.6.tgz#00966317b7a12fe92f3cc831f7583af329b86c37"
+
 directory-tree@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/directory-tree/-/directory-tree-2.0.0.tgz#c0a5fa0d642a1b1b7d10351b3c1db429770d8946"
@@ -1136,13 +1160,16 @@ graphcool-json-schema@^0.3.12:
   version "0.3.12"
   resolved "https://registry.yarnpkg.com/graphcool-json-schema/-/graphcool-json-schema-0.3.12.tgz#9f7a1d0c576480e494438525f1abd2c219287a85"
 
-graphcool-lib:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/graphcool-lib/-/graphcool-lib-0.0.3.tgz#c7277782d975a6dd428c217409f7d8a44be0cc0e"
+graphcool-lib@beta:
+  version "0.0.4-beta4"
+  resolved "https://registry.yarnpkg.com/graphcool-lib/-/graphcool-lib-0.0.4-beta4.tgz#73731e4d03d5e804a02dd217f488779cd2102e55"
   dependencies:
-    "@types/node" "^7.0.14"
-    graphql-request "^1.2.0"
-    source-map-support "^0.4.15"
+    apollo-link-http "^0.7.0"
+    graphql "^0.11.2"
+    graphql-request "^1.3.4"
+    graphql-tools "^2.4.0"
+    node-fetch "^1.7.3"
+    source-map-support "^0.4.17"
 
 graphcool@next:
   version "0.7.0"
@@ -1154,17 +1181,31 @@ graphcool@next:
     semver "^5.4.1"
     source-map-support "^0.4.18"
 
-graphql-request, graphql-request@^1.3.4:
+graphql-request:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/graphql-request/-/graphql-request-1.4.0.tgz#f5b067c83070296d93fb45760e83dfad0d9f537a"
+  dependencies:
+    cross-fetch "0.0.8"
+
+graphql-request@^1.3.4:
   version "1.3.6"
   resolved "https://registry.yarnpkg.com/graphql-request/-/graphql-request-1.3.6.tgz#7257d9c539e747b7ef8dbafc04e4a4231ca94464"
   dependencies:
     isomorphic-fetch "^2.2.1"
 
-graphql-request@^1.2.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/graphql-request/-/graphql-request-1.4.0.tgz#f5b067c83070296d93fb45760e83dfad0d9f537a"
+graphql-tools@^2.4.0:
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/graphql-tools/-/graphql-tools-2.5.1.tgz#542c48d4f9a532e09280ae216084813ea7ba4b18"
   dependencies:
-    cross-fetch "0.0.8"
+    apollo-link "^0.8.0"
+    deprecated-decorator "^0.1.6"
+    uuid "^3.1.0"
+
+graphql@^0.11.0, graphql@^0.11.2:
+  version "0.11.7"
+  resolved "https://registry.yarnpkg.com/graphql/-/graphql-0.11.7.tgz#e5abaa9cb7b7cccb84e9f0836bf4370d268750c6"
+  dependencies:
+    iterall "1.1.3"
 
 har-schema@^1.0.5:
   version "1.0.5"
@@ -1394,6 +1435,10 @@ isomorphic-fetch@^2.2.1:
 isstream@~0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
+
+iterall@1.1.3:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/iterall/-/iterall-1.1.3.tgz#1cbbff96204056dde6656e2ed2e2226d0e6d72c9"
 
 js-yaml@^3.7.0, js-yaml@^3.9.1:
   version "3.10.0"
@@ -2112,7 +2157,7 @@ sntp@1.x.x:
   dependencies:
     hoek "2.x.x"
 
-source-map-support@^0.4.15, source-map-support@^0.4.18:
+source-map-support@^0.4.17, source-map-support@^0.4.18:
   version "0.4.18"
   resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.4.18.tgz#0286a6de8be42641338594e97ccea75f0a2c585f"
   dependencies:
@@ -2383,7 +2428,7 @@ uue@^3.1.0:
   dependencies:
     extend "~3.0.0"
 
-uuid@^3.0.0:
+uuid@^3.0.0, uuid@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.1.0.tgz#3dd3d3e790abc24d7b0d3a034ffababe28ebbc04"
 
@@ -2473,6 +2518,10 @@ xtend@~2.1.1:
 yaml-ast-parser@^0.0.34:
   version "0.0.34"
   resolved "https://registry.yarnpkg.com/yaml-ast-parser/-/yaml-ast-parser-0.0.34.tgz#d00f3cf9d773b7241409ae92a6740d1db19f49e6"
+
+zen-observable@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/zen-observable/-/zen-observable-0.6.0.tgz#8a6157ed15348d185d948cfc4a59d90a2c0f70ee"
 
 zip-stream@^1.2.0:
   version "1.2.0"
