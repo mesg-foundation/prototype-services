@@ -2,20 +2,26 @@
 types: ./types.graphql
 
 functions:
-  action-data-validation-on-update:
-    type: operationBefore
-    operation: Action.update
-    schema: ./app/actions/functions/validate-data/schema.graphql
-    handler:
-      code:
-        src: ./app/actions/functions/validate-data/index.js
-  action-data-validation-on-create:
-    type: operationBefore
-    operation: Action.create
-    schema: ./app/actions/functions/validate-data/schema.graphql
-    handler:
-      code:
-        src: ./app/actions/functions/validate-data/index.js
+
+  # ================================================================================= 
+  # TODO
+  # enable this when the issue https://github.com/graphcool/graphcool/issues/818
+  # is fixed from graphcool
+  # ================================================================================= 
+  # action-data-validation-on-update:
+  #   type: operationBefore
+  #   operation: Action.update
+  #   schema: ./app/actions/functions/validate-data/schema.graphql
+  #   handler:
+  #     code:
+  #       src: ./app/actions/functions/validate-data/index.js
+  # action-data-validation-on-create:
+  #   type: operationBefore
+  #   operation: Action.create
+  #   schema: ./app/actions/functions/validate-data/schema.graphql
+  #   handler:
+  #     code:
+  #       src: ./app/actions/functions/validate-data/index.js
   signup:
     type: resolver
     schema: ./app/email-password/schemas/signup.graphql
