@@ -1,6 +1,6 @@
-query create {
+query create($user_id: ID, $input_triggerId: ID) {
   SomeUserExists(filter: {id: $user_id, projects_some: {triggers_some: {id: $input_triggerId}}})
 }
-query read($node_id: ID) {
+query read($user_id: ID, $node_id: ID) {
   SomeEventExists(filter: {id: $node_id, trigger: {project: {users_some: {id: $user_id}}}})
 }

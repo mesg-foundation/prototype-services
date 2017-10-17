@@ -1,3 +1,3 @@
-query read3($node_id: ID) {
+query read3($user_id: ID, $node_id: ID) {
   SomeUserExists(filter: {OR: [{id: $user_id}, {projects_some: {users_some: {OR: [{id: $user_id}, {id: $node_id}]}}}]})
 }

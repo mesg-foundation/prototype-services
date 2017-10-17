@@ -1,12 +1,12 @@
-query create {
+query create($user_id: ID, $input_projectId: ID) {
   SomeUserExists(filter: {id: $user_id, projects_some: {id: $input_projectId}})
 }
-query read($node_id: ID) {
+query read($user_id: ID, $node_id: ID) {
   SomeUserExists(filter: {id: $user_id, projects_some: {triggers_some: {id: $node_id}}})
 }
-query update($node_id: ID) {
+query update($user_id: ID, $node_id: ID) {
   SomeUserExists(filter: {id: $user_id, projects_some: {triggers_some: {id: $node_id}}})
 }
-query delete($node_id: ID) {
+query delete($user_id: ID, $node_id: ID) {
   SomeUserExists(filter: {id: $user_id, projects_some: {triggers_some: {id: $node_id}}})
 }
