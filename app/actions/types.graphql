@@ -1,9 +1,0 @@
-type Action implements Node {
-  createdAt: DateTime!
-  id: ID! @isUnique
-  updatedAt: DateTime!
-  project: Project! @relation(name: "ActionOnProject")
-  service: Service @relation(name: "ServiceOnAction")
-  triggers: [Trigger!]! @relation(name: "ActionOnTriggers")
-  data: Json!
-}

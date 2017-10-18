@@ -1,7 +1,0 @@
-type Invitation implements Node {
-  createdAt: DateTime!
-  email: String!
-  id: ID! @isUnique
-  project: Project @relation(name: "InvitationOnProject")
-  updatedAt: DateTime!
-}

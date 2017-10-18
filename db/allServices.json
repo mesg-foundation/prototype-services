@@ -5,95 +5,180 @@
         "name": "Email with Sendgrid",
         "priority": 4,
         "description": "Send email with Sendgrid API",
-        "data": [
-          {
-            "name": "secret",
-            "type": "string",
-            "required": true
+        "data": {
+          "properties": {
+            "secret": {
+              "title": "Sendgrid secret",
+              "description": "Go to <a href='https://app.sendgrid.com/settings/api_keys' target='_blank'>https://app.sendgrid.com/settings/api_keys</a> to create a new Sendgrid API key",
+              "type": "string",
+              "pattern": "^SG"
+            },
+            "body": {
+              "title": "Email body",
+              "description": "You can bind some data from your contract event like «{{ userEmail }}»",
+              "type": "string",
+              "default": "This is my first email content :)"
+            },
+            "subject": {
+              "title": "Subject",
+              "type": "string",
+              "default": "Hello world"
+            },
+            "to": {
+              "title": "Email of the reciver",
+              "type": "string"
+            },
+            "from": {
+              "title": "Email of the sender",
+              "type": "string"
+            }
           },
-          {
-            "name": "from",
-            "type": "string",
-            "required": true
-          },
-          {
-            "name": "to",
-            "type": "string",
-            "required": true
-          },
-          {
-            "name": "subject",
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "type": "string"
-          }
-        ],
+          "title": "Email with Sendgrid",
+          "type": "object",
+          "required": [
+            "from",
+            "to",
+            "secret"
+          ],
+          "$schema": "http://json-schema.org/draft-06/schema#"
+        },
         "key": "SendgridEmail",
         "endpoint": "https://t6lqq501ng.execute-api.us-east-1.amazonaws.com/dev/sendgrid-email",
         "picture": "https://sendgrid.kke.co.jp/images/common/logo.svg"
       },
       {
-        "name": "Webhook",
-        "priority": 1,
-        "description": "Send the event data to any webhook, connect directly to your application backend or create a serverless function to handle the event",
-        "data": [
-          {
-            "name": "endpoint",
-            "type": "string",
-            "required": true,
-            "regexp": "^https?://"
-          },
-          {
-            "name": "method",
-            "type": "string",
-            "default": "POST",
-            "values": [
-              "POST",
-              "GET"
-            ]
-          },
-          {
-            "name": "headers",
-            "type": "object"
-          }
-        ],
-        "key": "Webhook",
-        "endpoint": "https://d5i8zdu9j4.execute-api.us-east-1.amazonaws.com/dev/webhook",
-        "picture": "https://mailparser.io/img/integrations/webhook.png"
-      },
-      {
-        "name": "Serverless Function",
+        "name": "Serverless function",
         "priority": 2,
         "description": "Execute a webtask function with all the data from your Ethereum Event. You can then treat your data as you want",
-        "data": [
-          {
-            "name": "code",
-            "type": "string",
-            "required": true,
-            "default": "module.exports = (event, callback) => {\n\tcallback(null, event)\n}"
-          }
-        ],
+        "data": {
+          "properties": {
+            "code": {
+              "pattern": "module\\.exports",
+              "description": "This function will be executed when your connector trigger and event",
+              "default": "module.exports = (event, callback) => {\n\tcallback(null, event)\n}",
+              "title": "Function",
+              "type": "string"
+            }
+          },
+          "title": "Serverless function",
+          "type": "object",
+          "required": [
+            "code"
+          ],
+          "$schema": "http://json-schema.org/draft-06/schema#"
+        },
         "key": "ServerlessFunction",
         "endpoint": "https://16mu7pc7qf.execute-api.us-east-1.amazonaws.com/dev/serverless-function",
         "picture": "https://cdn.auth0.com/website/assets/pages/press/img/resources/webtask-logo-f479cae0f6.svg"
       },
       {
-        "name": "Slack Notification",
+        "name": "Webhook notification",
+        "priority": 1,
+        "description": "Send the event data to any webhook, connect directly to your application backend or create a serverless function to handle the event",
+        "data": {
+          "properties": {
+            "endpoint": {
+              "title": "Webhook endpoint",
+              "description": "You can use <a href='http://webhook.site/' target='_blank'>http://webhook.site/</a> to test your webhook",
+              "type": "string",
+              "pattern": "^https?://"
+            },
+            "method": {
+              "description": "We recommand to use the POST method all the time",
+              "enum": [
+                "POST",
+                "GET"
+              ],
+              "default": "POST",
+              "title": "HTTP Method",
+              "type": "string"
+            },
+            "headers": {
+              "title": "Headers",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "key",
+                  "value"
+                ],
+                "properties": {
+                  "key": {
+                    "title": "Header Key",
+                    "type": "string"
+                  },
+                  "value": {
+                    "title": "Header Value",
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "title": "Webhook notification",
+          "type": "object",
+          "required": [
+            "endpoint"
+          ],
+          "$schema": "http://json-schema.org/draft-06/schema#"
+        },
+        "key": "Webhook",
+        "endpoint": "https://d5i8zdu9j4.execute-api.us-east-1.amazonaws.com/dev/webhook",
+        "picture": "https://mailparser.io/img/integrations/webhook.png"
+      },
+      {
+        "name": "Slack notification",
         "priority": 3,
         "description": "Send an event on your Slack with the details of the event",
-        "data": [
-          {
-            "name": "webhookUrl",
-            "type": "string",
-            "required": true,
-            "regexp": "^https?://"
-          }
-        ],
-        "key": "SlackNotification",
+        "data": {
+          "properties": {
+            "webhookUrl": {
+              "title": "Slack enpoint",
+              "description": "To create a new Slack webhook you can <a href='https://my.slack.com/services/new/incoming-webhook' target='_blank'>click here</a> and when created copy your <strong>Webhook URL</strong>",
+              "type": "string",
+              "pattern": "^https://hooks.slack.com/"
+            }
+          },
+          "title": "Slack notification",
+          "type": "object",
+          "required": [
+            "webhookUrl"
+          ],
+          "$schema": "http://json-schema.org/draft-06/schema#"
+        },
+        "key": "Slack",
         "endpoint": "https://oyig3xfot9.execute-api.us-east-1.amazonaws.com/dev/slack",
         "picture": "https://assets.brandfolder.com/p34392sa/view@2x.png"
+      },
+      {
+        "name": "Mongodb connector",
+        "priority": 9999,
+        "description": "Save the transaction in your mongodb database",
+        "data": {
+          "properties": {
+            "uri": {
+              "title": "Database URI",
+              "description": "The URI of your database (should be something like mongodb://...:27017/mydb)",
+              "type": "string",
+              "pattern": "^mongodb://"
+            },
+            "collection": {
+              "title": "Collection",
+              "description": "Your data will be stored in that collection",
+              "type": "string"
+            }
+          },
+          "title": "Mongodb connector",
+          "type": "object",
+          "required": [
+            "uri",
+            "collection"
+          ],
+          "$schema": "http://json-schema.org/draft-06/schema#"
+        },
+        "key": "Mongodb",
+        "endpoint": "https://rakrepi1i8.execute-api.us-east-1.amazonaws.com/dev/mongodb",
+        "picture": "https://webassets.mongodb.com/_com_assets/cms/mongodb-logo-rgb-j6w271g1xn.jpg"
       }
     ]
   }

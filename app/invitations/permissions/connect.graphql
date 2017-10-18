@@ -1,8 +1,0 @@
-{
-	SomeProjectExists(filter: {
-		id: $projectProject_id,
-		users_some: {
-			id: $user_id
-		}
-	})
-}

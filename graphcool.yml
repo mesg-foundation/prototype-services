@@ -1,88 +1,209 @@
-# GraphQL types
 types: ./types.graphql
-
-# Graphcool modules
-modules: 
-  actions: app/actions/graphcool.yml
-  blockchain-connectors: app/blockchain-connectors/graphcool.yml
-  contracts: app/contracts/graphcool.yml
-  email-password: app/email-password/graphcool.yml
-  events: app/events/graphcool.yml
-  invitations: app/invitations/graphcool.yml
-  logs: app/logs/graphcool.yml
-  notifications: app/notifications/graphcool.yml
-  plans: app/plans/graphcool.yml
-  projects: app/projects/graphcool.yml
-  services: app/services/graphcool.yml
-  triggers: app/triggers/graphcool.yml
-  users: app/users/graphcool.yml
-
+functions:
+  trigger-service:
+    handler:
+      code:
+        src: src/functions/trigger-service/index.js
+    type: subscription
+    query: src/functions/trigger-service/subscription.graphql
+  handle-trigger-error:
+    handler:
+      code:
+        src: src/functions/handle-trigger-error/index.js
+    type: subscription
+    query: src/functions/handle-trigger-error/subscription.graphql
+  notify-on-trigger-error:
+    handler:
+      code:
+        src: src/functions/notify-on-trigger-error/index.js
+    type: subscription
+    query: src/functions/notify-on-trigger-error/subscription.graphql
+  validate-action-data-on-create:
+    handler:
+      code:
+        src: src/functions/validate-action-data/index.js
+    type: operationBefore
+    operation: Action.create
+  notify-team:
+    handler:
+      code:
+        src: src/functions/notify-team/index.js
+    type: subscription
+    query: src/functions/notify-team/subscription.graphql
+  validate-action-data-on-update:
+    handler:
+      code:
+        src: src/functions/validate-action-data/index.js
+    type: operationBefore
+    operation: Action.update
+  invitation-send-email:
+    handler:
+      code:
+        src: src/functions/send-invitation-email/index.js
+    type: subscription
+    query: src/functions/send-invitation-email/subscription.graphql
+  invite-to-project:
+    handler:
+      code:
+        src: src/functions/invite-to-project/index.js
+    type: subscription
+    query: src/functions/invite-to-project/subscription.graphql
+  logged-in-user:
+    handler:
+      code:
+        src: src/functions/logged-in-user/index.js
+    type: resolver
+    schema: src/functions/logged-in-user/schema.graphql
+  authenticate:
+    handler:
+      code:
+        src: src/functions/authenticate/index.js
+    type: resolver
+    schema: src/functions/authenticate/schema.graphql
+  signup:
+    handler:
+      code:
+        src: src/functions/signup/index.js
+    type: resolver
+    schema: src/functions/signup/schema.graphql
+  assign-plan:
+    handler:
+      code:
+        src: src/functions/assign-plan/index.js
+    type: subscription
+    query: src/functions/assign-plan/subscription.graphql
 permissions:
-- operation: ConnectorOnTriggers.connect
+- operation: Action.create
   authenticated: true
-  # query: ... TODO
-
-- operation: ActionOnTriggers.connect
+  query: ./src/permissions/Action.graphql:create
+- operation: Action.update
   authenticated: true
-  # query: ... TODO
-
-- operation: ServiceOnAction.connect
+  query: ./src/permissions/Action.graphql:update
+- operation: Action.read
   authenticated: true
-  # query: ... TODO
-
+  query: ./src/permissions/Action.graphql:read
+- operation: Connector.create
+  authenticated: true
+  query: ./src/permissions/Connector.graphql:create
+- operation: Connector.update
+  authenticated: true
+  query: ./src/permissions/Connector.graphql:update
+- operation: Connector.read
+  authenticated: true
+  query: ./src/permissions/Connector.graphql:read
+- operation: Contract.create
+  authenticated: true
+  query: ./src/permissions/Contract.graphql:create
+- operation: Contract.read
+  authenticated: true
+  query: ./src/permissions/Contract.graphql:read
+- operation: Contract.update
+  authenticated: true
+  query: ./src/permissions/Contract.graphql:update
+  fields:
+  - public
+  - abi
+  - chain
+  - name
+  - description
+- operation: EthereumContractConnector.read
+  authenticated: true
+  query: ./src/permissions/EthereumContractConnector.graphql:read
+- operation: EthereumTransactionConnector.read
+  authenticated: true
+  query: ./src/permissions/EthereumTransactionConnector.graphql:read
+- operation: Event.create
+  authenticated: true
+  query: ./src/permissions/Event.graphql:create
+- operation: Event.read
+  authenticated: true
+  query: ./src/permissions/Event.graphql:read
+- operation: Invitation.create
+  authenticated: true
+  query: ./src/permissions/Invitation.graphql:create
+- operation: Invitation.read
+  authenticated: true
+  query: ./src/permissions/Invitation.graphql:read
+- operation: Plan.read
+- operation: Project.create
+  authenticated: true
+  query: ./src/permissions/Project.graphql:create
+- operation: Project.read
+  authenticated: true
+  query: ./src/permissions/Project.graphql:read
+- operation: Project.update
+  authenticated: true
+  query: ./src/permissions/Project.graphql:update
+  fields:
+  - name
+- operation: Project.delete
+  authenticated: true
+  query: ./src/permissions/Project.graphql:delete
+- operation: Service.read
+  fields:
+  - id
+  - key
+  - name
+  - description
+  - data
+  - picture
+- operation: TaskLog.read
+  authenticated: true
+  query: ./src/permissions/TaskLog.graphql:read
+- operation: Trigger.create
+  authenticated: true
+  query: ./src/permissions/Trigger.graphql:create
+- operation: Trigger.read
+  authenticated: true
+  query: ./src/permissions/Trigger.graphql:read
+- operation: Trigger.update
+  authenticated: true
+  query: ./src/permissions/Trigger.graphql:update
+- operation: Trigger.delete
+  authenticated: true
+  query: ./src/permissions/Trigger.graphql:delete
+- operation: User.create
+- operation: User.read
+- operation: User.read
+  fields:
+  - id
+- operation: User.create
+- operation: User.read
+  authenticated: true
+  query: ./src/permissions/User.graphql:read3
 - operation: ActionOnProject.connect
   authenticated: true
-  # query: ... TODO
-
-# === ConnectorOnProject
-- operation: ConnectorOnProject.connect
+- operation: ActionOnTriggers.connect
   authenticated: true
-  # query: ./permissions/ConnectorOnProject/connect.graphql TODO
-
-# === ConnectorOnContracts
 - operation: ConnectorOnContracts.connect
   authenticated: true
-
-# === TriggerOnContract
-- operation: TriggerOnContract.connect
+- operation: ConnectorOnProject.connect
   authenticated: true
-  query: ./permissions/TriggerOnContract/connect.graphql
-
-# === ProjectOnUser
-- operation: ProjectOnUser.connect
+- operation: ConnectorOnTriggers.connect
   authenticated: true
-  query: ./permissions/ProjectOnUser/connect.graphql
-
-# === TriggerOnProject
-- operation: TriggerOnProject.connect
+- operation: EthereumContractOnConnectors.connect
   authenticated: true
-  query: ./permissions/TriggerOnProject/connect.graphql
-
-# === ProjectOnContract
-- operation: ProjectOnContract.connect
+- operation: EthereumTransactionOnConnectors.connect
   authenticated: true
-  query: ./permissions/ProjectOnContract/connect.graphql
-
-# === EventOnTrigger
 - operation: EventOnTrigger.connect
   authenticated: true
-  query: ./permissions/EventOnTrigger/connect.graphql
-
-# === TriggerOnService
-- operation: TriggerOnService.connect
+  query: ./src/permissions/EventOnTrigger.graphql:connect
+- operation: InvitationOnProject.connect
   authenticated: true
-  query: ./permissions/TriggerOnService/connect.graphql
-- operation: TriggerOnService.disconnect
+  query: ./src/permissions/InvitationOnProject.graphql:connect
+- operation: ProjectOnContract.connect
   authenticated: true
-  query: ./permissions/TriggerOnService/connect.graphql
-  
-
-# ======================
-# ======= TOKENS =======
-# ======================
-
-
-# Permanent Auth Token / Root Tokens
+  query: ./src/permissions/ProjectOnContract.graphql:connect
+- operation: ProjectOnUser.connect
+  authenticated: true
+  query: ./src/permissions/ProjectOnUser.graphql:connect
+- operation: ServiceOnAction.connect
+  authenticated: true
+- operation: TriggerOnProject.connect
+  authenticated: true
+  query: ./src/permissions/TriggerOnProject.graphql:connect
 rootTokens:
-  - functions
-
+- functions
+- signup
+- authenticate
+- logged-in-user

@@ -1,0 +1,9 @@
+query create($user_id: ID, $input_projectId: ID) {
+  SomeUserExists(filter: {id: $user_id, projects_some: {id: $input_projectId}})
+}
+query update($user_id: ID, $node_id: ID) {
+  SomeConnectorExists(filter: {id: $node_id, project: {users_some: {id: $user_id}}})
+}
+query read($user_id: ID, $node_id: ID) {
+  SomeConnectorExists(filter: {id: $node_id, project: {users_some: {id: $user_id}}})
+}

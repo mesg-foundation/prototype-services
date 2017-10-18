@@ -1,0 +1,3 @@
+query read($user_id: ID, $node_id: ID) {
+  SomeTaskLogExists(filter: {id: $node_id, trigger: {project: {users_some: {id: $user_id}}}})
+}

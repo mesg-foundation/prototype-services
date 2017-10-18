@@ -1,8 +1,0 @@
-{
-  SomeUserExists(filter: {
-    AND: [
-      { id: $user_id },
-      { id: $usersUser_id }
-    ]
-  })
-}
