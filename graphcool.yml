@@ -180,6 +180,8 @@ permissions:
   authenticated: true
 - operation: ConnectorOnContracts.connect
   authenticated: true
+- operation: ConnectorTokenOnContracts.connect
+  authenticated: true
 - operation: ConnectorOnProject.connect
   authenticated: true
 - operation: ConnectorOnTriggers.connect
