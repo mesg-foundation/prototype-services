@@ -7,6 +7,7 @@ type Contract @model {
   abi: Json!
   project: Project @relation(name: "ProjectOnContract")
   connectors: [EthereumContractConnector!]! @relation(name: "ConnectorOnContracts")
+  connectorsToken: [EthereumTokenConnector!]! @relation(name: "ConnectorTokenOnContracts")
   chain: ETHEREUM_BLOCKCHAIN! @defaultValue(value: MAINNET)
   description: String
   name: String!
@@ -136,6 +137,7 @@ type Connector @model {
   project: Project! @relation(name: "ConnectorOnProject")
   ethereumContract: EthereumContractConnector @relation(name: "EthereumContractOnConnectors")
   ethereumTransaction: EthereumTransactionConnector @relation(name: "EthereumTransactionOnConnectors")
+  ethereumToken: EthereumTokenConnector @relation(name: "EthereumTokenOnConnectors")
   triggers: [Trigger!]! @relation(name: "ConnectorOnTriggers")
   connectorType: CONNECTOR_TYPE! @defaultValue(value: ETHEREUM_CONTRACT)
   createdAt: DateTime!
@@ -146,6 +148,15 @@ type EthereumContractConnector @model {
   id: ID! @isUnique
   connector: Connector @relation(name: "EthereumContractOnConnectors")
   contract: Contract @relation(name: "ConnectorOnContracts")
+  eventName: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type EthereumTokenConnector @model {
+  id: ID! @isUnique
+  connector: Connector @relation(name: "EthereumTokenOnConnectors")
+  contract: Contract @relation(name: "ConnectorTokenOnContracts")
   eventName: String!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -170,6 +181,7 @@ enum NOTIFICATION_KIND {
 enum CONNECTOR_TYPE {
   ETHEREUM_CONTRACT
   ETHEREUM_TRANSACTION
+  ETHEREUM_TOKEN
 }
 
 enum ETHEREUM_BLOCKCHAIN {
