@@ -121,15 +121,6 @@ type User @model {
   projects: [Project!]! @relation(name: "ProjectOnUser")
 }
 
-enum CURRENCY {
-  USD
-}
-
-enum NOTIFICATION_KIND {
-  TRIGGER_DISABLED
-  TRIGGER_ERROR
-}
-
 type Action @model {
   createdAt: DateTime!
   id: ID! @isUnique
@@ -138,11 +129,6 @@ type Action @model {
   service: Service @relation(name: "ServiceOnAction")
   triggers: [Trigger!]! @relation(name: "ActionOnTriggers")
   data: Json!
-}
-
-enum CONNECTOR_TYPE {
-  ETHEREUM_CONTRACT
-  ETHEREUM_TRANSACTION
 }
 
 type Connector @model {
@@ -154,13 +140,6 @@ type Connector @model {
   connectorType: CONNECTOR_TYPE! @defaultValue(value: ETHEREUM_CONTRACT)
   createdAt: DateTime!
   updatedAt: DateTime!
-}
-
-enum ETHEREUM_BLOCKCHAIN {
-  HOMESTEAD
-  MAINNET
-  TESTNET
-  KOVAN
 }
 
 type EthereumContractConnector @model {
@@ -177,4 +156,25 @@ type EthereumTransactionConnector @model {
   connector: Connector @relation(name: "EthereumTransactionOnConnectors")
   address: String!
   chain: ETHEREUM_BLOCKCHAIN!
+}
+
+enum CURRENCY {
+  USD
+}
+
+enum NOTIFICATION_KIND {
+  TRIGGER_DISABLED
+  TRIGGER_ERROR
+}
+
+enum CONNECTOR_TYPE {
+  ETHEREUM_CONTRACT
+  ETHEREUM_TRANSACTION
+}
+
+enum ETHEREUM_BLOCKCHAIN {
+  HOMESTEAD
+  MAINNET
+  TESTNET
+  KOVAN
 }
