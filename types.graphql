@@ -3,7 +3,7 @@ type Contract @model {
   createdAt: DateTime!
   id: ID! @isUnique
   updatedAt: DateTime!
-  public: Boolean! @defaultValue(value: true)
+  public: Boolean! @defaultValue(value: false)
   abi: Json!
   project: Project @relation(name: "ProjectOnContract")
   connectors: [EthereumContractConnector!]! @relation(name: "ConnectorOnContracts")
@@ -11,6 +11,7 @@ type Contract @model {
   chain: ETHEREUM_BLOCKCHAIN! @defaultValue(value: MAINNET)
   description: String
   name: String!
+  category: String
 }
 
 type Event @model {
