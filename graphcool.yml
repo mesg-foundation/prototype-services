@@ -112,6 +112,9 @@ permissions:
 - operation: EthereumTransactionConnector.read
   authenticated: true
   query: ./src/permissions/EthereumTransactionConnector.graphql:read
+- operation: EthereumTokenConnector.read
+  authenticated: true
+  query: ./src/permissions/EthereumTokenConnector.graphql:read
 - operation: Event.create
   authenticated: true
   query: ./src/permissions/Event.graphql:create
@@ -177,6 +180,8 @@ permissions:
   authenticated: true
 - operation: ConnectorOnContracts.connect
   authenticated: true
+- operation: ConnectorTokenOnContracts.connect
+  authenticated: true
 - operation: ConnectorOnProject.connect
   authenticated: true
 - operation: ConnectorOnTriggers.connect
@@ -184,6 +189,8 @@ permissions:
 - operation: EthereumContractOnConnectors.connect
   authenticated: true
 - operation: EthereumTransactionOnConnectors.connect
+  authenticated: true
+- operation: EthereumTokenOnConnectors.connect
   authenticated: true
 - operation: EventOnTrigger.connect
   authenticated: true

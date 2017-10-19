@@ -7,6 +7,7 @@ type Contract @model {
   abi: Json!
   project: Project @relation(name: "ProjectOnContract")
   connectors: [EthereumContractConnector!]! @relation(name: "ConnectorOnContracts")
+  connectorsToken: [EthereumTokenConnector!]! @relation(name: "ConnectorTokenOnContracts")
   chain: ETHEREUM_BLOCKCHAIN! @defaultValue(value: MAINNET)
   description: String
   name: String!
@@ -121,15 +122,6 @@ type User @model {
   projects: [Project!]! @relation(name: "ProjectOnUser")
 }
 
-enum CURRENCY {
-  USD
-}
-
-enum NOTIFICATION_KIND {
-  TRIGGER_DISABLED
-  TRIGGER_ERROR
-}
-
 type Action @model {
   createdAt: DateTime!
   id: ID! @isUnique
@@ -140,27 +132,16 @@ type Action @model {
   data: Json!
 }
 
-enum CONNECTOR_TYPE {
-  ETHEREUM_CONTRACT
-  ETHEREUM_TRANSACTION
-}
-
 type Connector @model {
   id: ID! @isUnique
   project: Project! @relation(name: "ConnectorOnProject")
   ethereumContract: EthereumContractConnector @relation(name: "EthereumContractOnConnectors")
   ethereumTransaction: EthereumTransactionConnector @relation(name: "EthereumTransactionOnConnectors")
+  ethereumToken: EthereumTokenConnector @relation(name: "EthereumTokenOnConnectors")
   triggers: [Trigger!]! @relation(name: "ConnectorOnTriggers")
   connectorType: CONNECTOR_TYPE! @defaultValue(value: ETHEREUM_CONTRACT)
   createdAt: DateTime!
   updatedAt: DateTime!
-}
-
-enum ETHEREUM_BLOCKCHAIN {
-  HOMESTEAD
-  MAINNET
-  TESTNET
-  KOVAN
 }
 
 type EthereumContractConnector @model {
@@ -172,9 +153,38 @@ type EthereumContractConnector @model {
   updatedAt: DateTime!
 }
 
+type EthereumTokenConnector @model {
+  id: ID! @isUnique
+  connector: Connector @relation(name: "EthereumTokenOnConnectors")
+  contract: Contract @relation(name: "ConnectorTokenOnContracts")
+  eventName: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
 type EthereumTransactionConnector @model {
   id: ID! @isUnique
   connector: Connector @relation(name: "EthereumTransactionOnConnectors")
   address: String!
   chain: ETHEREUM_BLOCKCHAIN!
+}
+
+enum CURRENCY {
+  USD
+}
+
+enum NOTIFICATION_KIND {
+  TRIGGER_DISABLED
+  TRIGGER_ERROR
+}
+
+enum CONNECTOR_TYPE {
+  ETHEREUM_CONTRACT
+  ETHEREUM_TRANSACTION
+  ETHEREUM_TOKEN
+}
+
+enum ETHEREUM_BLOCKCHAIN {
+  MAINNET
+  TESTNET
 }
