@@ -169,6 +169,13 @@ type EthereumTransactionConnector @model {
   chain: ETHEREUM_BLOCKCHAIN!
 }
 
+type BetaCustomer @model {
+  id: ID! @isUnique
+  name: String! @isUnique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
 enum CURRENCY {
   USD
 }

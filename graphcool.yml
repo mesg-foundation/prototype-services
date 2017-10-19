@@ -73,6 +73,9 @@ functions:
     type: subscription
     query: src/functions/assign-plan/subscription.graphql
 permissions:
+- operation: BetaCustomer.read
+  fields:
+  - name
 - operation: Action.create
   authenticated: true
   query: ./src/permissions/Action.graphql:create
