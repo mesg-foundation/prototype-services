@@ -12,6 +12,7 @@ type Contract @model {
   description: String
   name: String!
   category: String
+  picture: String
 }
 
 type Event @model {
