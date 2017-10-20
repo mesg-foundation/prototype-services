@@ -9,10 +9,13 @@ query create($user_id: ID, $input_projectId: ID) {
 query read($user_id: ID, $node_id: ID) {
   SomeContractExists(filter: {
     id: $node_id,
-    OR: [
-      { project: { users_some: { id: $user_id } } },
-      { public: true }
-    ]
+    project: { users_some: { id: $user_id } }
+  })
+}
+query readPublic($node_id: ID) {
+  SomeContractExists(filter: {
+    id: $node_id,
+    public: true
   })
 }
 query update($user_id: ID, $node_id: ID) {
