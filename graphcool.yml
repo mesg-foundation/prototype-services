@@ -97,9 +97,17 @@ permissions:
 - operation: Contract.create
   authenticated: true
   query: ./src/permissions/Contract.graphql:create
+  fields:
+  - public
+  - abi
+  - chain
+  - name
+  - description
 - operation: Contract.read
   authenticated: true
   query: ./src/permissions/Contract.graphql:read
+- operation: Contract.read
+  query: ./src/permissions/Contract.graphql:readPublic
 - operation: Contract.update
   authenticated: true
   query: ./src/permissions/Contract.graphql:update
