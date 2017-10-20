@@ -99,6 +99,7 @@ permissions:
   query: ./src/permissions/Contract.graphql:create
   fields:
   - public
+  - address
   - abi
   - chain
   - name
