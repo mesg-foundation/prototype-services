@@ -23,7 +23,7 @@ type Contract @model {
 type Event @model {
   createdAt: DateTime!
   id: ID! @isUnique
-  executedAt: DateTime!
+  executedAt: DateTime
   payload: Json!
   transactionId: String!
   blockId: String!

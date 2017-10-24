@@ -4,7 +4,7 @@ const totalEventToMigrate = `query {
   }
 }`
 const allEventsQuery = `query {
-  allEvents(filter: { executedAt: null }) {
+  allEvents(first: 100, filter: { executedAt: null }) {
     id,
     createdAt
   }
