@@ -58,6 +58,7 @@ module.exports = event => {
       meta: eventData.trigger.action.data,
       payload: eventData.payload,
       transaction: {
+        timestamp: +new Date(eventData.executedAt || eventData.createdAt),
         id: eventData.transactionId,
         block: eventData.blockId,
         from: eventData.from,
