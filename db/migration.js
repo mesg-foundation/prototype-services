@@ -72,7 +72,7 @@ const create = () => {
   if (!name) throw new Error('You should give a name to your migration')
   const time = (new Date()).toISOString()
   const filename = [time, paramCase(name)].join('_')
-  const content = `module.exports.migrate = api => {}`
+  const content = `module.exports = async client => {}`
   const path = `${MIGRATION_PATH}/${filename}.js`
   fs.writeFile(path, content, err => err
     ? console.error(err)
