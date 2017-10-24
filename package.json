@@ -10,10 +10,8 @@
     "start": "graphcool local up",
     "stop": "graphcool local stop",
     "db:seed": "node db/seed",
-    "deploy:dev": "graphcool deploy --env dev",
-    "deploy:dev:force": "graphcool deploy --env dev --force",
-    "deploy:prod": "graphcool deploy --env prod",
-    "deploy:prod:force": "graphcool deploy --env prod --force"
+    "db:migration:create": "node db/migration create",
+    "db:migrate": "node db/migration migrate"
   },
   "author": "Anthony ESTEBE <anthony.estebe@gmail.com>",
   "license": "MIT",
@@ -27,6 +25,7 @@
     "validator": "^9.0.0"
   },
   "devDependencies": {
+    "change-case": "^3.0.1",
     "graphcool": "next"
   }
 }
