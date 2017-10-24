@@ -1,3 +1,8 @@
+type Migration @model {
+  id: ID! @isUnique
+  migrationName: String! @isUnique
+}
+
 type Contract @model {
   address: String!
   createdAt: DateTime!
