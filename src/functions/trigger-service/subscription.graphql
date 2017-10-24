@@ -5,6 +5,8 @@ subscription {
     updatedFields
     node {
       id
+      createdAt
+      executedAt
       payload
       transactionId
       blockId
