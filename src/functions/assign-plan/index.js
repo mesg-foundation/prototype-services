@@ -1,4 +1,7 @@
 const fromEvent = require('graphcool-lib').fromEvent
+
+
+
 const freePlanQuery = () => `query {
   allPlans(
     first: 1, 
