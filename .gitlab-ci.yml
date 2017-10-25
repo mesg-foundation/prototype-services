@@ -23,7 +23,8 @@ test:
 deploy_graphcool_staging:
   stage: deploy
   script:
-    - 'printf "platformToken: >-\n\t$GC_AUTH_TOKEN" > /builds/etherstellar/functions/.graphcoolrc'
+    - echo "$GC_AUTH_TOKEN"
+    - 'printf "platformToken: >-\n  $GC_AUTH_TOKEN" > /builds/etherstellar/functions/.graphcoolrc'
     - npm run gc -- deploy --target dev
   environment:
     name: staging/$CI_COMMIT_REF_SLUG
@@ -33,7 +34,7 @@ deploy_graphcool_staging:
 deploy_graphcool:
   stage: deploy
   script:
-    - 'printf "platformToken: >-\n\t$GC_AUTH_TOKEN" > /builds/etherstellar/functions/.graphcoolrc'
+    - 'printf "platformToken: >-\n  $GC_AUTH_TOKEN" > /builds/etherstellar/functions/.graphcoolrc'
     - npm run gc -- deploy --target prod
   environment:
     name: production
