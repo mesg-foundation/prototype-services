@@ -23,7 +23,7 @@ test:
 deploy_graphcool_staging:
   stage: deploy
   script:
-    - 'printf "platformToken: >-\n  $GC_AUTH_TOKEN" > $CI_PROJECT_DIR/.graphcoolrc'
+    - 'printf "platformToken: >-\n  $GC_AUTH_TOKEN" >> $CI_PROJECT_DIR/.graphcoolrc'
     - npm run gc -- deploy --target dev
   environment:
     name: staging/$CI_COMMIT_REF_SLUG
@@ -33,7 +33,7 @@ deploy_graphcool_staging:
 deploy_graphcool:
   stage: deploy
   script:
-    - 'printf "platformToken: >-\n  $GC_AUTH_TOKEN" > $CI_PROJECT_DIR/.graphcoolrc'
+    - 'printf "platformToken: >-\n  $GC_AUTH_TOKEN" >> $CI_PROJECT_DIR/.graphcoolrc'
     - npm run gc -- deploy --target prod
   environment:
     name: production
