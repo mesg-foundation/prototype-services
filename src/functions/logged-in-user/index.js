@@ -1,6 +1,6 @@
 const fromEvent = require('graphcool-lib').fromEvent
 
-function getUser(api, userId) {
+function getUser (api, userId) {
   return api.request(`
     query {
       User(id: "${userId}") {
@@ -15,8 +15,7 @@ function getUser(api, userId) {
     })
 }
 
-module.exports = function loggedInUser(event) {
-
+module.exports = function loggedInUser (event) {
   if (!event.context.auth || !event.context.auth.nodeId) {
     return {data: {id: null}}
   }
@@ -26,6 +25,6 @@ module.exports = function loggedInUser(event) {
   const api = graphcool.api('simple/v1')
 
   return getUser(api, userId)
-    .then(user => user ? { data: user } : Promise.reject(`No user with id ${userId}`))
+    .then(user => user ? { data: user } : Promise.reject(new Error(`No user with id ${userId}`)))
     .catch(error => ({ error: error.message || error }))
 }

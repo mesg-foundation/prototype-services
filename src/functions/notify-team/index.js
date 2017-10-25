@@ -32,7 +32,7 @@ module.exports = event => {
   const lastNotificationDate = lastNotification
     ? +new Date(lastNotification.createdAt)
     : null
-  
+
   return lastNotificationDate && lastNotificationDate > +new Date() - delay
     ? Promise.resolve({ error: 'NOTIFICATION_SENT_ALREADY' })
     : sendgridInstance

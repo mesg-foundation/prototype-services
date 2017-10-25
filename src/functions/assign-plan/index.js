@@ -23,9 +23,9 @@ const assignPlanQuery = (projectId, planId) => `mutation {
 
 module.exports = event => {
   const project = event.data.Project.node
-  
+
   if (project.plan && project.plan.id) { return Promise.resolve({ error: 'This project already have a plan' }) }
-  
+
   const api = fromEvent(event, { token: event.context.graphcool.rootToken }).api('simple/v1')
   return api.request(freePlanQuery())
     .then(x => x.allPlans[0].id)
