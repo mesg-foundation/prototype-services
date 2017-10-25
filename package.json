@@ -9,6 +9,7 @@
   "scripts": {
     "gc": "gc",
     "lint": "standard",
+    "test": "echo \"Error: no test specified\" && exit 0",
     "start": "graphcool local up",
     "stop": "graphcool local stop",
     "db:seed": "node db/seed",
