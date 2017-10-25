@@ -20,10 +20,19 @@ test:
     - npm install
     - npm run test
 
-deploy_graphcool:
+deploy_graphcool_staging:
   stage: deploy
   script:
     - npm run gc -- deploy --target dev
+  environment:
+    name: staging/$CI_COMMIT_REF_SLUG
+    url: https://console.graph.cool/EtherstellarDev
+  when: manual
+
+deploy_graphcool:
+  stage: deploy
+  script:
+    - npm run gc -- deploy --target prod
   environment:
     name: production
     url: https://console.graph.cool/EtherstellarProd
