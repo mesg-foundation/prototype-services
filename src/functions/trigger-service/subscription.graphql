@@ -25,6 +25,14 @@ subscription {
               name
             }
           },
+          ethereumToken {
+            eventName
+            contract {
+              address
+              chain
+              name
+            }
+          },
           ethereumTransaction {
             address
             chain
