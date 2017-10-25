@@ -23,7 +23,7 @@ const migrate = async client => {
       id: event.id,
       executedAt: event.createdAt
     })))
-  } catch(e) {
+  } catch (e) {
     migrate(client)
   }
 }

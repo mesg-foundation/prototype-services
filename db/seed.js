@@ -23,22 +23,6 @@ const types = {
   }
 }
 
-const generateQuery = (type, data) => {
-  const args = Object.keys(data)
-    .map(key => [
-      key,
-      types[type][key] ? x[key] : JSON.stringify(data[key])
-    ].join(': '))
-    .join(', ')
-  return `{
-    create${type}(
-      ${args}
-    ) {
-      id
-    }
-  }`
-}
-
 const transformPayload = (type, payload) => {
   const value = key => types[type] && types[type][key]
     ? payload[key]

@@ -25,7 +25,7 @@ const presentInTeam = (email, project) => !!project.users.find(x => x.email === 
 
 module.exports = event => {
   const data = event.data.Invitation.node
-  
+
   // if (reachLimit(data.project)) { return callback(new Error('limit reached')) }
   const api = fromEvent(event, { token: event.context.graphcool.rootToken }).api('simple/v1')
   return presentInTeam(data.email, data.project)

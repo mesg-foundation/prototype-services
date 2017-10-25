@@ -2,7 +2,7 @@ const fromEvent = require('graphcool-lib').fromEvent
 const bcrypt = require('bcryptjs')
 const validator = require('validator')
 
-function getGraphcoolUser(api, email) {
+function getGraphcoolUser (api, email) {
   return api.request(`
     query {
       User(email: "${email}") {
@@ -18,7 +18,7 @@ function getGraphcoolUser(api, email) {
     })
 }
 
-function createGraphcoolUser(api, email, passwordHash) {
+function createGraphcoolUser (api, email, passwordHash) {
   return api.request(`
     mutation {
       createUser(
@@ -33,10 +33,10 @@ function createGraphcoolUser(api, email, passwordHash) {
     })
 }
 
-module.exports = function(event) {
+module.exports = function (event) {
   if (!event.context.graphcool.pat) {
     console.log('Please provide a valid root token!')
-    return { error: 'Email Signup not configured correctly.'}
+    return { error: 'Email Signup not configured correctly.' }
   }
 
   const email = event.data.email

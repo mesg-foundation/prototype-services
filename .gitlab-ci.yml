@@ -1,0 +1,43 @@
+image: node:latest
+
+cache:
+  paths:
+  - node_modules/
+
+stages:
+  - test
+  - deploy
+
+lint:
+  stage: test
+  script:
+    - npm install
+    - npm run lint
+
+test:
+  stage: test
+  script:
+    - npm install
+    - npm run test
+
+deploy_graphcool_staging:
+  stage: deploy
+  script:
+    - 'printf "platformToken: >-\n  $GC_AUTH_TOKEN" >> $CI_PROJECT_DIR/.graphcoolrc'
+    - npm run gc -- deploy --target dev
+  environment:
+    name: staging/$CI_COMMIT_REF_SLUG
+    url: https://console.graph.cool/EtherstellarDev
+  when: manual
+
+deploy_graphcool:
+  stage: deploy
+  script:
+    - 'printf "platformToken: >-\n  $GC_AUTH_TOKEN" >> $CI_PROJECT_DIR/.graphcoolrc'
+    - npm run gc -- deploy --target prod
+  environment:
+    name: production
+    url: https://console.graph.cool/EtherstellarProd
+  when: manual
+  only:
+    - master

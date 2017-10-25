@@ -9,7 +9,7 @@ const query = `mutation(
   $triggerId:ID!
 ) {
   createTaskLog(
-  	body: $body,
+    body: $body,
     code: $code,
     duration: $duration,
     eventId: $eventId,
@@ -69,7 +69,7 @@ module.exports = event => {
       },
       connector: connector(eventData.trigger),
       trigger: {
-        id: eventData.trigger.id,
+        id: eventData.trigger.id
       }
     }
   })

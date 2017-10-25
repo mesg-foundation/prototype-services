@@ -34,7 +34,6 @@ const updateTriggerStatus = (triggerId, projectId, api) => limitReached => limit
   }`)
   : Promise.resolve({ error: 'LIMIT_NOT_REACHED' })
 
-
 const date = shift => new Date(+new Date() - ((shift || 0) * 24 * 60 * 60 * 1000))
 const extractTotalError = x => x._allTaskLogsMeta.count
 const errorLimitReached = maxLimit => value => value >= maxLimit
