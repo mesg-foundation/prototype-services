@@ -7,6 +7,8 @@
     "type": "git"
   },
   "scripts": {
+    "gc": "gc",
+    "lint": "standard",
     "start": "graphcool local up",
     "stop": "graphcool local stop",
     "db:seed": "node db/seed",
@@ -26,6 +28,7 @@
   },
   "devDependencies": {
     "change-case": "^3.0.1",
-    "graphcool": "next"
+    "graphcool": "next",
+    "standard": "^10.0.3"
   }
 }
