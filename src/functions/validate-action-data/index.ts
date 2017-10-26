@@ -1,11 +1,15 @@
-const fromEvent = require('graphcool-lib').fromEvent
-const validate = require('jsonschema').validate
+import { fromEvent } from 'graphcool-lib'
+import { validate } from 'jsonschema'
 
-module.exports = event => {
+interface Service {
+  data: JSON
+}
+
+export default event => {
   const { serviceId, data } = event.data
 
   const api = fromEvent(event).api('simple/v1')
-  return api.request(`query {
+  return api.request<{ Service: Service }>(`query {
     Service(id: "${serviceId}") { data }
   }`)
     .then(x => validate(data, x.Service.data))

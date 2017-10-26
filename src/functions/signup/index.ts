@@ -1,39 +1,35 @@
-const fromEvent = require('graphcool-lib').fromEvent
-const bcrypt = require('bcryptjs')
-const validator = require('validator')
+import { fromEvent } from 'graphcool-lib'
+import { hash } from 'bcryptjs'
+import * as validator from 'validator'
 
-function getGraphcoolUser (api, email) {
-  return api.request(`
-    query {
-      User(email: "${email}") {
-        id
-      }
-    }`)
-    .then((userQueryResult) => {
-      if (userQueryResult.error) {
-        return Promise.reject(userQueryResult.error)
-      } else {
-        return userQueryResult.User
-      }
-    })
-}
+const getGraphcoolUser = (api, email) => api.request(`
+  query {
+    User(email: "${email}") {
+      id
+    }
+  }`)
+  .then((userQueryResult) => {
+    if (userQueryResult.error) {
+      return Promise.reject(userQueryResult.error)
+    } else {
+      return userQueryResult.User
+    }
+  })
 
-function createGraphcoolUser (api, email, passwordHash) {
-  return api.request(`
-    mutation {
-      createUser(
-        email: "${email}",
-        password: "${passwordHash}"
-      ) {
-        id
-      }
-    }`)
-    .then((userMutationResult) => {
-      return userMutationResult.createUser.id
-    })
-}
+const createGraphcoolUser = (api, email, passwordHash) => api.request(`
+  mutation {
+    createUser(
+      email: "${email}",
+      password: "${passwordHash}"
+    ) {
+      id
+    }
+  }`)
+  .then((userMutationResult) => {
+    return userMutationResult.createUser.id
+  })
 
-module.exports = function (event) {
+export default event => {
   if (!event.context.graphcool.pat) {
     console.log('Please provide a valid root token!')
     return { error: 'Email Signup not configured correctly.' }
@@ -49,7 +45,7 @@ module.exports = function (event) {
   return getGraphcoolUser(api, email)
     .then(graphcoolUser => graphcoolUser !== null
       ? { error: 'Email already in use' }
-      : bcrypt.hash(password, SALT_ROUNDS)
+      : hash(password, SALT_ROUNDS)
         .then(hash => createGraphcoolUser(api, email, hash))
         .then(graphcoolUserId => graphcool.generateNodeToken(graphcoolUserId, 'User')
           .then(token => ({

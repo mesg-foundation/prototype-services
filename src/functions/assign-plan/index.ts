@@ -1,4 +1,9 @@
-const fromEvent = require('graphcool-lib').fromEvent
+import { fromEvent } from 'graphcool-lib'
+
+interface Plan {
+  id: string
+}
+
 const freePlanQuery = () => `query {
   allPlans(
     first: 1, 
@@ -21,13 +26,15 @@ const assignPlanQuery = (projectId, planId) => `mutation {
   }
 }`
 
-module.exports = event => {
+export default event => {
   const project = event.data.Project.node
 
-  if (project.plan && project.plan.id) { return Promise.resolve({ error: 'This project already have a plan' }) }
+  if (project.plan && project.plan.id) {
+    return Promise.resolve({ error: 'This project already have a plan' })
+  }
 
   const api = fromEvent(event).api('simple/v1')
-  return api.request(freePlanQuery())
+  return api.request<{ allPlans: Plan[] }>(freePlanQuery())
     .then(x => x.allPlans[0].id)
     .then(x => api.request(assignPlanQuery(project.id, x)))
 }

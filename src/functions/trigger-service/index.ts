@@ -1,5 +1,5 @@
-const fromEvent = require('graphcool-lib').fromEvent
-const axios = require('axios')
+import { fromEvent } from 'graphcool-lib'
+import axios from 'axios'
 
 const query = `mutation(
   $body: String,
@@ -46,7 +46,7 @@ const connector = trigger => [
   .map(x => trigger.connector[x])
   .filter(x => x)[0]
 
-module.exports = event => {
+export default event => {
   const eventData = event.data.Event.node
   const monitoring = startMonitoring()
   const api = fromEvent(event).api('simple/v1')

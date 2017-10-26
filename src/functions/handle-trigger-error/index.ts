@@ -1,4 +1,4 @@
-const fromEvent = require('graphcool-lib').fromEvent
+import { fromEvent } from 'graphcool-lib'
 
 const createQuery = (projectId, triggerId, from, to) => `query {
   _allTaskLogsMeta(filter: {
@@ -34,18 +34,18 @@ const updateTriggerStatus = (triggerId, projectId, api) => limitReached => limit
   }`)
   : Promise.resolve({ error: 'LIMIT_NOT_REACHED' })
 
-const date = shift => new Date(+new Date() - ((shift || 0) * 24 * 60 * 60 * 1000))
+const date = (shift = 0) => new Date(+new Date() - (shift * 24 * 60 * 60 * 1000))
 const extractTotalError = x => x._allTaskLogsMeta.count
 const errorLimitReached = maxLimit => value => value >= maxLimit
 
-module.exports = event => {
+export default event => {
   const trigger = event.data.TaskLog.node.trigger
   const projectId = trigger.project.id
   const api = fromEvent(event).api('simple/v1')
   return api.request(createQuery(
     projectId,
     trigger.id,
-    date(process.env.MAX_ERROR_DURATION),
+    date(parseInt(process.env.MAX_ERROR_DURATION || "30", 10)),
     date())
   )
     .then(extractTotalError)

@@ -1,7 +1,7 @@
-const fromEvent = require('graphcool-lib').fromEvent
-const bcrypt = require('bcryptjs')
+import { fromEvent } from 'graphcool-lib'
+import { compare } from 'bcryptjs'
 
-function getGraphcoolUser (api, email) {
+const getGraphcoolUser = (api, email) => {
   return api.request(`
     query {
       User(email: "${email}"){
@@ -15,7 +15,7 @@ function getGraphcoolUser (api, email) {
     )
 }
 
-module.exports = function (event) {
+export default event => {
   if (!event.context.graphcool.pat) {
     console.log('Please provide a valid root token!')
     return { error: 'Email Authentication not configured correctly.' }
@@ -28,7 +28,7 @@ module.exports = function (event) {
   return getGraphcoolUser(api, email)
     .then(graphcoolUser => graphcoolUser === null
       ? Promise.reject(new Error('Invalid Credentials'))
-      : bcrypt.compare(password, graphcoolUser.password)
+      : compare(password, graphcoolUser.password)
         .then(passwordCorrect => passwordCorrect ? graphcoolUser.id : Promise.reject(new Error('Invalid Credentials')))
         .then(graphcoolUserId => graphcool.generateNodeToken(graphcoolUserId, 'User'))
         .then(token => ({

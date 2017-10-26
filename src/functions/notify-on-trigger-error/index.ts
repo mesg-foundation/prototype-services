@@ -1,6 +1,6 @@
-const fromEvent = require('graphcool-lib').fromEvent
+import { fromEvent } from 'graphcool-lib'
 
-module.exports = event => {
+export default event => {
   const trigger = event.data.TaskLog.node.trigger
   const projectId = trigger.project.id
   const api = fromEvent(event).api('simple/v1')

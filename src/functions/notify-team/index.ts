@@ -1,5 +1,5 @@
-const sendgrid = require('sendgrid')
-const Helpers = require('sendgrid').mail
+import * as Sendgrid from 'sendgrid'
+
 const templates = {
   TRIGGER_DISABLED: data => ({
     title: 'A trigger has been desactivated',
@@ -10,25 +10,25 @@ const templates = {
     content: `The trigger ${data.trigger.id} fails to execute, please check the details on your dashboard`
   })
 }
-const fromEmail = new Helpers.Email('no-reply@etherstellar.com', 'EtherStellar')
+const fromEmail = new Sendgrid.mail.Email('no-reply@etherstellar.com', 'EtherStellar')
 
 const generateMail = data => {
   const { title, content } = templates[data.kind](data)
-  return new Helpers.Mail(
+  return new Sendgrid.mail.Mail(
     fromEmail,
     title,
-    new Helpers.Email(data.project.users.map(x => x.email).join(';')),
-    new Helpers.Content('text/plain', content)
+    new Sendgrid.mail.Email(data.project.users.map(x => x.email).join(';')),
+    new Sendgrid.mail.Content('text/plain', content)
   )
 }
 
-module.exports = event => {
+export default event => {
   const notification = event.data.Notification.node
   // notification.trigger.notifications[0]
   // is the one just created so we take the one just before
   const lastNotification = notification.trigger.notifications[1]
   const delay = 1 * 24 * 60 * 60 * 1000 // 1 day
-  const sendgridInstance = sendgrid(process.env.SENDGRID_SECRET)
+  const sendgridInstance = Sendgrid(process.env.SENDGRID_SECRET || '')
   const lastNotificationDate = lastNotification
     ? +new Date(lastNotification.createdAt)
     : null

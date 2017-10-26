@@ -19,6 +19,7 @@
   "author": "Anthony ESTEBE <anthony.estebe@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@types/bcryptjs": "^2.4.1",
     "axios": "^0.16.2",
     "bcryptjs": "^2.4.3",
     "graphcool-lib": "^0.1.4",

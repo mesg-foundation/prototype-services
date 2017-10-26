@@ -1,19 +1,18 @@
-const sendgrid = require('sendgrid')
-const Helpers = require('sendgrid').mail
-const fromEmail = new Helpers.Email('no-reply@etherstellar.com', 'EtherStellar')
+import * as Sendgrid from 'sendgrid'
+const fromEmail = new Sendgrid.mail.Email('no-reply@etherstellar.com', 'EtherStellar')
 
 const title = data => `You've been invited to the ${data.project.name} project`
 const content = data => `[${data.project.name}]... go to your dashboard... ${data.id}`
 
-const generateMail = data => new Helpers.Mail(
+const generateMail = data => new Sendgrid.mail.Mail(
   fromEmail,
   title(data),
-  new Helpers.Email(data.email),
-  new Helpers.Content('text/plain', content(data))
+  new Sendgrid.mail.Email(data.email),
+  new Sendgrid.mail.Content('text/plain', content(data))
 )
 
-module.exports = event => {
-  const sendgridInstance = sendgrid(process.env.SENDGRID_SECRET)
+export default event => {
+  const sendgridInstance = Sendgrid(process.env.SENDGRID_SECRET || '')
   return sendgridInstance
     .API(sendgridInstance.emptyRequest({
       method: 'POST',
