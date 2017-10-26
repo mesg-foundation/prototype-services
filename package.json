@@ -21,7 +21,7 @@
   "dependencies": {
     "axios": "^0.16.2",
     "bcryptjs": "^2.4.3",
-    "graphcool-lib": "beta",
+    "graphcool-lib": "^0.1.4",
     "graphql-request": "^1.4.0",
     "jsonschema": "^1.2.0",
     "sendgrid": "^5.2.3",

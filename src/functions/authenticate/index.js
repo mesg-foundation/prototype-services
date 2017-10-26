@@ -23,7 +23,7 @@ module.exports = function (event) {
 
   const email = event.data.email
   const password = event.data.password
-  const graphcool = fromEvent(event, { token: event.context.graphcool.rootToken })
+  const graphcool = fromEvent(event)
   const api = graphcool.api('simple/v1')
   return getGraphcoolUser(api, email)
     .then(graphcoolUser => graphcoolUser === null

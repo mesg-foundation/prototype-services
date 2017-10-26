@@ -21,7 +21,7 @@ module.exports = function loggedInUser (event) {
   }
 
   const userId = event.context.auth.nodeId
-  const graphcool = fromEvent(event, { token: event.context.graphcool.rootToken })
+  const graphcool = fromEvent(event)
   const api = graphcool.api('simple/v1')
 
   return getUser(api, userId)
