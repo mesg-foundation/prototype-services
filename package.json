@@ -8,7 +8,7 @@
   },
   "scripts": {
     "gc": "gc",
-    "lint": "standard",
+    "lint": "standard && tslint src/**/*.ts",
     "test": "echo \"Error: no test specified\" && exit 0",
     "start": "graphcool local up",
     "stop": "graphcool local stop",
@@ -19,6 +19,7 @@
   "author": "Anthony ESTEBE <anthony.estebe@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@types/bcryptjs": "^2.4.1",
     "axios": "^0.16.2",
     "bcryptjs": "^2.4.3",
     "graphcool-lib": "^0.1.4",
@@ -30,6 +31,7 @@
   "devDependencies": {
     "change-case": "^3.0.1",
     "graphcool": "next",
-    "standard": "^10.0.3"
+    "standard": "^10.0.3",
+    "tslint": "^5.8.0"
   }
 }
