@@ -49,7 +49,7 @@ const connector = trigger => [
 module.exports = event => {
   const eventData = event.data.Event.node
   const monitoring = startMonitoring()
-  const api = fromEvent(event, { token: event.context.graphcool.rootToken }).api('simple/v1')
+  const api = fromEvent(event).api('simple/v1')
   const log = logResponse(eventData, api)
   return axios({
     method: 'POST',

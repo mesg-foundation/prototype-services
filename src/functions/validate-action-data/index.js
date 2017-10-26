@@ -4,7 +4,7 @@ const validate = require('jsonschema').validate
 module.exports = event => {
   const { serviceId, data } = event.data
 
-  const api = fromEvent(event, { token: event.context.graphcool.rootToken }).api('simple/v1')
+  const api = fromEvent(event).api('simple/v1')
   return api.request(`query {
     Service(id: "${serviceId}") { data }
   }`)
