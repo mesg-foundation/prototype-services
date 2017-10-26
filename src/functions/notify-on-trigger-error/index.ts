@@ -1,9 +1,9 @@
-import { fromEvent } from 'graphcool-lib'
+import { fromEvent } from "graphcool-lib";
 
-export default event => {
-  const trigger = event.data.TaskLog.node.trigger
-  const projectId = trigger.project.id
-  const api = fromEvent(event).api('simple/v1')
+export default (event) => {
+  const trigger = event.data.TaskLog.node.trigger;
+  const projectId = trigger.project.id;
+  const api = fromEvent(event).api("simple/v1");
 
   return api.request(`mutation {
     createNotification(
@@ -13,5 +13,5 @@ export default event => {
     ) {
       id
     }
-  }`)
-}
+  }`);
+};

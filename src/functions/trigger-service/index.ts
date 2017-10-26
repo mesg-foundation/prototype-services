@@ -1,5 +1,5 @@
-import { fromEvent } from 'graphcool-lib'
-import axios from 'axios'
+import axios from "axios";
+import { fromEvent } from "graphcool-lib";
 
 const query = `mutation(
   $body: String,
@@ -17,63 +17,56 @@ const query = `mutation(
   ) {
     id
   }
-}`
+}`;
 
 const startMonitoring = () => {
-  const durationStart = new Date().getTime()
-  return data => Object.assign({},
-    data,
-    { duration: new Date().getTime() - durationStart }
-  )
-}
+  const durationStart = new Date().getTime();
+  return (data) => ({
+    ...data,
+    duration: new Date().getTime() - durationStart,
+  });
+};
 
-const logResponse = (event, api) => response => {
-  const variables = {
-    triggerId: event.trigger.id,
-    body: response.data ? JSON.stringify(response.data) : response.message,
-    code: (response.status || response.code || 'ERROR').toString(),
-    eventId: event.id,
-    duration: response.duration || 0
-  }
-  return api.request(query, variables)
-}
+const logResponse = (event, api) => (response) => api.request(query, {
+  body: response.data ? JSON.stringify(response.data) : response.message,
+  code: (response.status || response.code || "ERROR").toString(),
+  duration: response.duration || 0,
+  eventId: event.id,
+  triggerId: event.trigger.id,
+});
 
-const connector = trigger => [
-  'ethereumContract',
-  'ethereumTransaction',
-  'ethereumToken'
+const connector = (trigger) => [
+  "ethereumContract",
+  "ethereumTransaction",
+  "ethereumToken",
 ]
-  .map(x => trigger.connector[x])
-  .filter(x => x)[0]
+  .map((x) => trigger.connector[x])
+  .filter((x) => x)[0];
 
-export default event => {
-  const eventData = event.data.Event.node
-  const monitoring = startMonitoring()
-  const api = fromEvent(event).api('simple/v1')
-  const log = logResponse(eventData, api)
-  return axios({
-    method: 'POST',
-    url: eventData.trigger.action.service.endpoint,
-    data: {
-      url: `${process.env.DASHBOARD_URL}/triggers/${eventData.trigger.id}/${eventData.id}`,
-      meta: eventData.trigger.action.data,
-      payload: eventData.payload,
-      transaction: {
-        timestamp: +new Date(eventData.executedAt || eventData.createdAt),
-        id: eventData.transactionId,
-        block: eventData.blockId,
-        from: eventData.from,
-        to: eventData.to,
-        value: eventData.value,
-        fees: eventData.fees
-      },
-      connector: connector(eventData.trigger),
-      trigger: {
-        id: eventData.trigger.id
-      }
-    }
+export default (event) => {
+  const eventData = event.data.Event.node;
+  const monitoring = startMonitoring();
+  const api = fromEvent(event).api("simple/v1");
+  const log = logResponse(eventData, api);
+  return axios.post(eventData.trigger.action.service.endpoint, {
+    connector: connector(eventData.trigger),
+    meta: eventData.trigger.action.data,
+    payload: eventData.payload,
+    transaction: {
+      block: eventData.blockId,
+      fees: eventData.fees,
+      from: eventData.from,
+      id: eventData.transactionId,
+      timestamp: +new Date(eventData.executedAt || eventData.createdAt),
+      to: eventData.to,
+      value: eventData.value,
+    },
+    trigger: {
+      id: eventData.trigger.id,
+    },
+    url: `${process.env.DASHBOARD_URL}/triggers/${eventData.trigger.id}/${eventData.id}`,
   })
     .then(monitoring)
     .then(log)
-    .catch(log)
-}
+    .catch(log);
+};
