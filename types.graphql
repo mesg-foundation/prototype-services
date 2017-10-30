@@ -128,6 +128,7 @@ type User @model {
   password: String
   updatedAt: DateTime!
   projects: [Project!]! @relation(name: "ProjectOnUser")
+  betaUser: Boolean @defaultValue(value: false)
 }
 
 type Action @model {
@@ -175,13 +176,6 @@ type EthereumTransactionConnector @model {
   connector: Connector @relation(name: "EthereumTransactionOnConnectors")
   address: String!
   chain: ETHEREUM_BLOCKCHAIN!
-}
-
-type BetaCustomer @model {
-  id: ID! @isUnique
-  name: String! @isUnique
-  createdAt: DateTime!
-  updatedAt: DateTime!
 }
 
 enum CURRENCY {

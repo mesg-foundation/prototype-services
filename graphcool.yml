@@ -82,9 +82,6 @@ functions:
     type: subscription
     query: src/functions/assign-plan/subscription.graphql
 permissions:
-- operation: BetaCustomer.read
-  fields:
-  - name
 - operation: Action.create
   authenticated: true
   query: ./src/permissions/Action.graphql:create
@@ -188,10 +185,8 @@ permissions:
   query: ./src/permissions/Trigger.graphql:delete
 - operation: User.create
 - operation: User.read
-- operation: User.read
   fields:
   - id
-- operation: User.create
 - operation: User.read
   authenticated: true
   query: ./src/permissions/User.graphql:read3

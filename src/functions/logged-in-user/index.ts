@@ -4,6 +4,7 @@ const getUser = (api, userId) => api.request(`
   query {
     User(id: "${userId}") {
       id
+      betaUser
     }
   }`)
   .then((userQueryResult) => userQueryResult.User)
