@@ -68,5 +68,5 @@ export default (event) => {
   })
     .then(monitoring)
     .then(log)
-    .catch(log);
+    .catch((error) => log(monitoring(error.response)));
 };
