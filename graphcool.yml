@@ -190,6 +190,9 @@ permissions:
 - operation: User.read
   authenticated: true
   query: ./src/permissions/User.graphql:read3
+- operation: Notification.read
+  authenticated: true
+  query: ./src/permissions/Notification.graphql:read
 - operation: ActionOnProject.connect
   authenticated: true
 - operation: ActionOnTriggers.connect

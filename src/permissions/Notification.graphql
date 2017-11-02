@@ -1,0 +1,10 @@
+query read($user_id: ID, $node_id: ID) {
+  SomeNotificationExists(filter: {
+    id: $node_id,
+    project: {
+      users_some: {
+        id: $user_id
+      }
+    }
+  })
+}
