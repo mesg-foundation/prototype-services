@@ -43,29 +43,31 @@ const connector = (trigger) => [
   .map((x) => trigger.connector[x])
   .filter((x) => x)[0];
 
+const params = (eventData) => ({
+  connector: connector(eventData.trigger),
+  meta: eventData.trigger.action.data,
+  payload: eventData.payload,
+  transaction: {
+    block: eventData.blockId,
+    fees: eventData.fees,
+    from: eventData.from,
+    id: eventData.transactionId,
+    timestamp: +new Date(eventData.executedAt || eventData.createdAt),
+    to: eventData.to,
+    value: eventData.value,
+  },
+  trigger: {
+    id: eventData.trigger.id,
+  },
+  url: `${process.env.DASHBOARD_URL}/triggers/${eventData.trigger.id}`,
+});
+
 export default (event) => {
   const eventData = event.data.Event.node;
   const monitoring = startMonitoring();
   const api = fromEvent(event).api("simple/v1");
   const log = logResponse(eventData, api);
-  return axios.post(eventData.trigger.action.service.endpoint, {
-    connector: connector(eventData.trigger),
-    meta: eventData.trigger.action.data,
-    payload: eventData.payload,
-    transaction: {
-      block: eventData.blockId,
-      fees: eventData.fees,
-      from: eventData.from,
-      id: eventData.transactionId,
-      timestamp: +new Date(eventData.executedAt || eventData.createdAt),
-      to: eventData.to,
-      value: eventData.value,
-    },
-    trigger: {
-      id: eventData.trigger.id,
-    },
-    url: `${process.env.DASHBOARD_URL}/triggers/${eventData.trigger.id}/${eventData.id}`,
-  })
+  return axios.post(eventData.trigger.action.service.endpoint, params(eventData))
     .then(monitoring)
     .then(log)
     .catch((error) => log(monitoring(error.response)));
