@@ -97,8 +97,8 @@ type Service @model {
 }
 
 type TaskLog @model {
-  body: String
-  code: String!
+  result: String @migrationValue(value: "")
+  error: Boolean @migrationValue(value: false)
   createdAt: DateTime!
   id: ID! @isUnique
   updatedAt: DateTime!

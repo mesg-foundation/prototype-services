@@ -2,7 +2,7 @@ subscription {
   TaskLog(filter: {
     mutation_in: [CREATED],
     node: {
-      code_not_starts_with: "20"
+      error: true,
     }
   }) {
     updatedFields

@@ -3,16 +3,16 @@ import { fromEvent } from "graphcool-lib";
 import * as Services from "./services";
 
 const query = `mutation(
-  $body: String,
-  $code: String!,
+  $result: String,
+  $error: Boolean,
   $duration: Int,
   $eventId: ID!,
   $triggerId: ID!,
   $lastLogAt: DateTime
 ) {
   createTaskLog(
-    body: $body,
-    code: $code,
+    result: $result,
+    error: $error,
     duration: $duration,
     eventId: $eventId,
     triggerId: $triggerId
@@ -33,11 +33,11 @@ const startMonitoring = () => {
 };
 
 const logResponse = (event, api) => ({ result, error, duration = 0 }) => api.request(query, {
-  body: error ? (error.message || JSON.stringify(error)) : JSON.stringify(result),
-  code: error ? "ERROR" : "200",
   duration,
+  error: !!error,
   eventId: event.id,
   lastLogAt: new Date(),
+  result: error ? (error.message || JSON.stringify(error)) : JSON.stringify(result),
   triggerId: event.trigger.id,
 });
 
