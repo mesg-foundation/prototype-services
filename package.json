@@ -22,9 +22,11 @@
     "@types/bcryptjs": "^2.4.1",
     "axios": "^0.16.2",
     "bcryptjs": "^2.4.3",
+    "flat": "^4.0.0",
     "graphcool-lib": "^0.1.4",
     "graphql-request": "^1.4.0",
     "jsonschema": "^1.2.0",
+    "mongodb": "^2.2.33",
     "sendgrid": "^5.2.3",
     "validator": "^9.0.0"
   },

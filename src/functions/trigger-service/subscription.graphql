@@ -41,7 +41,7 @@ subscription {
         action {
           service {
             id
-            endpoint
+            key
           }
           data
         }

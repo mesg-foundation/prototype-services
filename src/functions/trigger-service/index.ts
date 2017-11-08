@@ -1,12 +1,14 @@
 import axios from "axios";
 import { fromEvent } from "graphcool-lib";
+import * as Services from "./services";
 
 const query = `mutation(
   $body: String,
   $code: String!,
   $duration: Int,
   $eventId: ID!,
-  $triggerId:ID!
+  $triggerId: ID!,
+  $lastLogAt: DateTime
 ) {
   createTaskLog(
     body: $body,
@@ -15,6 +17,9 @@ const query = `mutation(
     eventId: $eventId,
     triggerId: $triggerId
   ) {
+    id
+  }
+  updateEvent(id: $eventId, lastLogAt: $lastLogAt) {
     id
   }
 }`;
@@ -27,11 +32,12 @@ const startMonitoring = () => {
   });
 };
 
-const logResponse = (event, api) => (response) => api.request(query, {
-  body: response.data ? JSON.stringify(response.data) : response.message,
-  code: (response.status || response.code || "ERROR").toString(),
-  duration: response.duration || 0,
+const logResponse = (event, api) => ({ result, error, duration = 0 }) => api.request(query, {
+  body: error ? (error.message || JSON.stringify(error)) : JSON.stringify(result),
+  code: error ? "ERROR" : "200",
+  duration,
   eventId: event.id,
+  lastLogAt: new Date(),
   triggerId: event.trigger.id,
 });
 
@@ -62,13 +68,16 @@ const params = (eventData) => ({
   url: `${process.env.DASHBOARD_URL}/triggers/${eventData.trigger.id}`,
 });
 
-export default (event) => {
+export default async (event) => {
   const eventData = event.data.Event.node;
   const monitoring = startMonitoring();
   const api = fromEvent(event).api("simple/v1");
   const log = logResponse(eventData, api);
-  return axios.post(eventData.trigger.action.service.endpoint, params(eventData))
-    .then(monitoring)
-    .then(log)
-    .catch((error) => log(monitoring(error.response)));
+  try {
+    const service = Services[eventData.trigger.action.service.key];
+    const result = await service(params(eventData));
+    return log(monitoring({ result }));
+  } catch (error) {
+    return log(monitoring({ error }));
+  }
 };

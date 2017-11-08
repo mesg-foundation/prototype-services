@@ -34,6 +34,7 @@ type Event @model {
   updatedAt: DateTime!
   trigger: Trigger @relation(name: "EventOnTrigger")
   taskLogs: [TaskLog!]! @relation(name: "EventOnTaskLogs")
+  lastLogAt: DateTime
 }
 
 type Invitation @model {

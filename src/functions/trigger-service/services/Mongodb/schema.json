@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "type": "object",
+  "title": "Mongodb connector",
+  "description": "Save the transaction in your mongodb database",
+  "required": ["uri", "collection"],
+  "properties": {
+    "uri": {
+      "title": "Database URI",
+      "description": "The URI of your database (should be something like mongodb://...:27017/mydb)",
+      "type": "string",
+      "pattern": "^mongodb://"
+    },
+    "collection": {
+      "title": "Collection",
+      "description": "Your data will be stored in that collection",
+      "type": "string"
+    }
+  }
+}

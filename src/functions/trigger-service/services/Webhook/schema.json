@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "type": "object",
+  "title": "Webhook notification",
+  "description": "Send the event data to any webhook, connect directly to your application backend or create a serverless function to handle the event",
+  "required": ["endpoint"],
+  "properties": {
+    "endpoint": {
+      "title": "Webhook endpoint",
+      "description": "You can use <a href='http://webhook.site/' target='_blank'>http://webhook.site/</a> to test your webhook",
+      "type": "string",
+      "pattern": "^https?://"
+    },
+    "method": {
+      "title": "HTTP Method",
+      "description": "We recommand to use the POST method all the time",
+      "type": "string",
+      "default": "POST",
+      "enum": [
+        "POST",
+        "GET"
+      ]
+    },
+    "headers": {
+      "title": "Headers",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["key", "value"],
+        "properties": {
+          "key": {
+            "title": "Header Key",
+            "type": "string"
+          },
+          "value": {
+            "title": "Header Value",
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
