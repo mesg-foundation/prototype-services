@@ -1,5 +1,5 @@
-const Sendgrid = require("sendgrid")
-const flat = require("flat")
+const Sendgrid = require('sendgrid')
+const flat = require('flat')
 
 const textTransform = variables => text => Object.keys(variables)
   .reduce((prevText, variableKey) => {

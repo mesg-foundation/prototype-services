@@ -1,4 +1,4 @@
-import { MongoClient } from 'mongodb';
+import { MongoClient } from "mongodb";
 
 export default async ({ meta, payload, transaction }) => {
   const db = await MongoClient.connect(meta.uri);
@@ -9,9 +9,9 @@ export default async ({ meta, payload, transaction }) => {
         payload,
       });
     db.close();
-    return res
+    return res;
   } catch (e) {
     db.close();
     throw e;
   }
-}
+};
