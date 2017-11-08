@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "type": "object",
+  "title": "Email with Sendgrid",
+  "description": "Send email with Sendgrid API",
+  "required": ["from", "to", "secret"],
+  "properties": {
+    "secret": {
+      "title": "Sendgrid secret",
+      "description": "Go to <a href='https://app.sendgrid.com/settings/api_keys' target='_blank'>https://app.sendgrid.com/settings/api_keys</a> to create a new Sendgrid API key",
+      "type": "string",
+      "pattern": "^SG"
+    },
+    "from": {
+      "title": "Email of the sender",
+      "type": "string"
+    },
+    "to": {
+      "title": "Email of the receiver",
+      "type": "string"
+    },
+    "subject": {
+      "title": "Subject",
+      "type": "string",
+      "default": "Hello world"
+    },
+    "body": {
+      "title": "Email body",
+      "description": "You can bind some data from your contract event like «{{ userEmail }}»",
+      "type": "string",
+      "default": "This is my first email content :)"
+    }
+  }
+}

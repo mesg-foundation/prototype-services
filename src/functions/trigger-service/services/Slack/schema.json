@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "type": "object",
+  "title": "Slack notification",
+  "description": "Send an event on your Slack with the details of the event",
+  "required": ["webhookUrl"],
+  "properties": {
+    "webhookUrl": {
+      "title": "Slack enpoint",
+      "description": "To create a new Slack webhook you can <a href='https://my.slack.com/services/new/incoming-webhook' target='_blank'>click here</a> and when created copy your <strong>Webhook URL</strong>",
+      "type": "string",
+      "pattern": "^https://hooks.slack.com/"
+    }
+  }
+}

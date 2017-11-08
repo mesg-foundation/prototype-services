@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "type": "object",
+  "title": "Serverless function",
+  "description": "Execute a webtask function with all the data from your Ethereum Event. You can then treat your data as you want",
+  "required": ["code"],
+  "properties": {
+    "code": {
+      "title": "Function",
+      "description": "This function will be executed when your connector trigger and event",
+      "type": "string",
+      "pattern": "module\\.exports",
+      "default": "module.exports = (event) => {\n\treturn Promise.resolve(event)\n}"
+    }
+  }
+}
