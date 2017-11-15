@@ -1,7 +1,7 @@
 import { paramCase } from "change-case";
 import { readdir, readFileSync, writeFile } from "fs";
 import { GraphQLClient } from "graphql-request";
-import yaml from "js-yaml";
+import { safeLoad } from "js-yaml";
 import { homedir } from "os";
 
 const cmd = process.argv[2];
@@ -28,7 +28,7 @@ const checkMigration = async (file, client) => {
 };
 
 const migrateFile = async (filename, client) => {
-  const migration = require(`${MIGRATION_PATH}/${filename}`);
+  const migration = require(`./migrations/${filename}`).default;
   await migration(client);
   const { createMigration } = await client.request(`mutation {
     createMigration(migrationName: "${migrationName(filename)}") {
@@ -50,9 +50,9 @@ const migrateFiles = async (files, client) => {
 };
 
 const migrate = () => {
-  const { targets } = yaml.safeLoad(readFileSync("./.graphcoolrc", "utf8"));
-  const defaultConf = yaml.safeLoad(readFileSync(`${homedir()}/.graphcoolrc`, "utf8"));
-  const target = targets[process.argv[3] || "dev"];
+  const { targets } = safeLoad(readFileSync("./.graphcoolrc", "utf8"));
+  const defaultConf = safeLoad(readFileSync(`${homedir()}/.graphcoolrc`, "utf8"));
+  const target = targets[process.argv[3] || "local"];
   const api = `${endpoint(target, defaultConf)}/simple/v1/${projectId(target)}`;
   const client = new GraphQLClient(api, {
     headers: {
