@@ -27,9 +27,9 @@ const checkMigration = async (file, client) => {
   return allMigrations.length > 0;
 };
 
-const migrateFile = async (filename, client) => {
+const migrateFile = async (filename, client, defaultEventMeta) => {
   const migration = require(`./migrations/${filename}`).default;
-  await migration(client);
+  await migration(client, defaultEventMeta);
   const { createMigration } = await client.request(`mutation {
     createMigration(migrationName: "${migrationName(filename)}") {
       id
@@ -39,11 +39,11 @@ const migrateFile = async (filename, client) => {
   return createMigration;
 };
 
-const migrateFiles = async (files, client) => {
+const migrateFiles = async (files, client, defaultEventMeta) => {
   for (const file of files) {
     const migrated = await checkMigration(file, client);
     if (!migrated) {
-      const res = await migrateFile(file, client);
+      const res = await migrateFile(file, client, defaultEventMeta);
       console.log(`Migrations ${res.migrationName} applied`);
     }
   }
@@ -59,11 +59,26 @@ const migrate = () => {
       Authorization: `Bearer ${authorization(target, defaultConf)}`,
     },
   });
+  const defaultEventMeta = {
+    context: {
+      graphcool: {
+        endpoints: {
+          relay: `${endpoint(target, defaultConf)}/relay/v1/${projectId(target)}`,
+          simple: `${endpoint(target, defaultConf)}/simple/v1/${projectId(target)}`,
+          subscriptions: `wss://subscriptions.graph.cool/v1/${projectId(target)}`,
+          system: `${endpoint(target, defaultConf)}/system"}`,
+        },
+        rootToken: authorization(target, defaultConf),
+        serviceId: projectId(target),
+      },
+    },
+  };
+
   console.log(`Migration in progress for ${api}`);
 
   readdir(MIGRATION_PATH, (err, files) => err
     ? console.error(err)
-    : migrateFiles(files, client),
+    : migrateFiles(files, client, defaultEventMeta),
   );
 };
 
