@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "repository": {
-    "url": "git@gitlab.com:etherstellar/functions.git",
+    "url": "https://gitlab.com/etherstellar/functions",
     "type": "git"
   },
   "scripts": {
@@ -12,9 +12,9 @@
     "test": "echo \"Error: no test specified\" && exit 0",
     "start": "graphcool local up",
     "stop": "graphcool local stop",
-    "db:seed": "node db/seed",
-    "db:migration:create": "node db/migration create",
-    "db:migrate": "node db/migration migrate"
+    "db:seed": "ts-node db/seed",
+    "db:migration:create": "ts-node db/migration create",
+    "db:migrate": "ts-node db/migration migrate"
   },
   "author": "Anthony ESTEBE <anthony.estebe@gmail.com>",
   "license": "MIT",
@@ -34,6 +34,7 @@
     "change-case": "^3.0.1",
     "graphcool": "next",
     "standard": "^10.0.3",
+    "ts-node": "^3.3.0",
     "tslint": "^5.8.0"
   }
 }

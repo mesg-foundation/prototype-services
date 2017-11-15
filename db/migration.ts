@@ -1,9 +1,8 @@
 import { paramCase } from "change-case";
-import fs from "fs";
+import { readdir, readFileSync, writeFile } from "fs";
 import { GraphQLClient } from "graphql-request";
 import yaml from "js-yaml";
-import os from "os";
-import vm from "vm";
+import { homedir } from "os";
 
 const cmd = process.argv[2];
 const MIGRATION_PATH = `./db/migrations`;
@@ -51,8 +50,8 @@ const migrateFiles = async (files, client) => {
 };
 
 const migrate = () => {
-  const { targets } = yaml.safeLoad(fs.readFileSync("./.graphcoolrc", "utf8"));
-  const defaultConf = yaml.safeLoad(fs.readFileSync(`${os.homedir()}/.graphcoolrc`, "utf8"));
+  const { targets } = yaml.safeLoad(readFileSync("./.graphcoolrc", "utf8"));
+  const defaultConf = yaml.safeLoad(readFileSync(`${homedir()}/.graphcoolrc`, "utf8"));
   const target = targets[process.argv[3] || "dev"];
   const api = `${endpoint(target, defaultConf)}/simple/v1/${projectId(target)}`;
   const client = new GraphQLClient(api, {
@@ -62,7 +61,7 @@ const migrate = () => {
   });
   console.log(`Migration in progress for ${api}`);
 
-  fs.readdir(MIGRATION_PATH, (err, files) => err
+  readdir(MIGRATION_PATH, (err, files) => err
     ? console.error(err)
     : migrateFiles(files, client),
   );
@@ -73,9 +72,13 @@ const create = () => {
   if (!name) { throw new Error("You should give a name to your migration"); }
   const time = (new Date()).toISOString();
   const filename = [time, paramCase(name)].join("_");
-  const content = `module.exports = async client => {}`;
-  const path = `${MIGRATION_PATH}/${filename}.js`;
-  fs.writeFile(path, content, (err) => err
+  const content = `import { GraphQLClient } from "graphql-request";
+export default async (client) => {
+
+};
+`;
+  const path = `${MIGRATION_PATH}/${filename}.ts`;
+  writeFile(path, content, (err) => err
     ? console.error(err)
     : console.log(`migration file written at ${path}`),
   );
