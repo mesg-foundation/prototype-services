@@ -145,6 +145,18 @@ permissions:
 - operation: Invitation.read
   authenticated: true
   query: ./src/permissions/Invitation.graphql:read
+- operation: Key.create
+  authenticated: true
+  query: './src/permissions/Key.graphql:create'
+- operation: Key.read
+  authenticated: true
+  query: './src/permissions/Key.graphql:read'
+  fields:
+  - id
+  - createdAt
+  - chain
+  - public
+  - name
 - operation: Plan.read
 - operation: Project.create
   authenticated: true
@@ -217,6 +229,9 @@ permissions:
 - operation: InvitationOnProject.connect
   authenticated: true
   query: ./src/permissions/InvitationOnProject.graphql:connect
+- operation: ProjectKeys.connect
+  authenticated: true
+  query: ./src/permissions/ProjectKeys.graphql:connect
 - operation: ProjectOnContract.connect
   authenticated: true
   query: ./src/permissions/ProjectOnContract.graphql:connect
