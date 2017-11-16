@@ -80,17 +80,17 @@ type Project @model {
   invitations: [Invitation!]! @relation(name: "InvitationOnProject")
   plan: Plan @relation(name: "ProjectOnPlan")
   notifications: [Notification!]! @relation(name: "NotificationOnProject")
-  keys: [Key!]! @relation(name: "ProjectKeys")
+  addresses: [Address!]! @relation(name: "ProjectAddresses")
 }
 
-type Key @model {
+type Address @model {
   id: ID! @isUnique
   createdAt: DateTime!
   updatedAt: DateTime!
-  name: String
-  public: String!
-  private: String!
-  project: Project! @relation(name: "ProjectKeys")
+  address: String
+  publicKey: String!
+  privateKey: String!
+  project: Project! @relation(name: "ProjectAddresses")
   chain: ETHEREUM_BLOCKCHAIN!
 }
 

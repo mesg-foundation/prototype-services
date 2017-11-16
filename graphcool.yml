@@ -81,6 +81,12 @@ functions:
         src: src/functions/assign-plan/index.ts
     type: subscription
     query: src/functions/assign-plan/subscription.graphql
+  create-project-eth-address:
+    handler:
+      code:
+        src: src/functions/create-project-eth-address/index.ts
+    type: subscription
+    query: src/functions/create-project-eth-address/subscription.graphql
 permissions:
 - operation: Action.create
   authenticated: true
@@ -145,18 +151,15 @@ permissions:
 - operation: Invitation.read
   authenticated: true
   query: ./src/permissions/Invitation.graphql:read
-- operation: Key.create
+- operation: Address.read
   authenticated: true
-  query: './src/permissions/Key.graphql:create'
-- operation: Key.read
-  authenticated: true
-  query: './src/permissions/Key.graphql:read'
+  query: './src/permissions/Address.graphql:read'
   fields:
   - id
   - createdAt
   - chain
-  - public
-  - name
+  - publicKey
+  - address
 - operation: Plan.read
 - operation: Project.create
   authenticated: true
@@ -229,9 +232,9 @@ permissions:
 - operation: InvitationOnProject.connect
   authenticated: true
   query: ./src/permissions/InvitationOnProject.graphql:connect
-- operation: ProjectKeys.connect
+- operation: ProjectAddresses.connect
   authenticated: true
-  query: ./src/permissions/ProjectKeys.graphql:connect
+  query: ./src/permissions/ProjectAddresses.graphql:connect
 - operation: ProjectOnContract.connect
   authenticated: true
   query: ./src/permissions/ProjectOnContract.graphql:connect
