@@ -1,0 +1,15 @@
+query read(
+  $user_id: ID,
+  $node_id: ID
+) {
+  SomeAddressExists(
+    filter: {
+      id: $node_id,
+      project: {
+        users_some: {
+          id: $user_id
+        }
+      }
+    }
+  )
+}
