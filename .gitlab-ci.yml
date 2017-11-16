@@ -25,7 +25,6 @@ staging_deploy:
   script:
     - 'printf "platformToken: >-\n  $GC_AUTH_TOKEN" >> $CI_PROJECT_DIR/.graphcoolrc'
     - npm run gc -- deploy --target dev
-    - npm run db:migrate dev
   environment:
     name: staging/$CI_COMMIT_REF_SLUG
     url: https://console.graph.cool/EtherstellarDev
@@ -36,7 +35,6 @@ staging_force_deploy:
   script:
     - 'printf "platformToken: >-\n  $GC_AUTH_TOKEN" >> $CI_PROJECT_DIR/.graphcoolrc'
     - npm run gc -- deploy --target dev --force
-    - npm run db:migrate dev
   environment:
     name: staging/$CI_COMMIT_REF_SLUG
     url: https://console.graph.cool/EtherstellarDev
@@ -47,7 +45,6 @@ prod_deploy:
   script:
     - 'printf "platformToken: >-\n  $GC_AUTH_TOKEN" >> $CI_PROJECT_DIR/.graphcoolrc'
     - npm run gc -- deploy --target prod
-    - npm run db:migrate dev
   environment:
     name: production
     url: https://console.graph.cool/EtherstellarProd
@@ -60,7 +57,6 @@ prod_force_deploy:
   script:
     - 'printf "platformToken: >-\n  $GC_AUTH_TOKEN" >> $CI_PROJECT_DIR/.graphcoolrc'
     - npm run gc -- deploy --target prod --force
-    - npm run db:migrate dev
   environment:
     name: production
     url: https://console.graph.cool/EtherstellarProd
