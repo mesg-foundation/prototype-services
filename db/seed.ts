@@ -54,7 +54,6 @@ const addAll = async (type) => {
 
 [
   "Plan",
-  "Service",
 ].forEach(async (type) => {
   await deleteAll(type);
   await addAll(type);
