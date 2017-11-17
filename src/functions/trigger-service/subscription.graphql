@@ -42,6 +42,7 @@ subscription {
           service {
             id
             key
+            isSystem
           }
           data
         }

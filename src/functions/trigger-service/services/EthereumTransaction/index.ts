@@ -36,7 +36,6 @@ export default async (event) => {
   if (!account) {
     throw new Error(`Cannot find address for the project ${event.project.id} for the blockchain ${chain}`);
   }
-  console.log(account);
 
   const eth = new Eth(new HttpProvider(providers[chain]));
   const txData = {
