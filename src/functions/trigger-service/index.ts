@@ -53,6 +53,9 @@ const params = (eventData) => ({
   connector: connector(eventData.trigger),
   meta: eventData.trigger.action.data,
   payload: eventData.payload,
+  project: {
+    id: eventData.trigger.project.id,
+  },
   transaction: {
     block: eventData.blockId,
     fees: eventData.fees,

@@ -45,6 +45,9 @@ subscription {
           }
           data
         }
+        project {
+          id
+        }
       }
     }
   }
