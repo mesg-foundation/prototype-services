@@ -98,11 +98,11 @@ type Service @model {
   createdAt: DateTime!
   data: Json
   description: String
-  endpoint: String! @isUnique
   id: ID! @isUnique
   key: String! @isUnique
   name: String!
   picture: String
+  isSystem: Boolean @defaultValue(value: false)
   priority: Int @defaultValue(value: 9999)
   actions: [Action!]! @relation(name: "ServiceOnAction")
   updatedAt: DateTime!

@@ -53,6 +53,9 @@ const params = (eventData) => ({
   connector: connector(eventData.trigger),
   meta: eventData.trigger.action.data,
   payload: eventData.payload,
+  project: {
+    id: eventData.trigger.project.id,
+  },
   transaction: {
     block: eventData.blockId,
     fees: eventData.fees,
@@ -75,7 +78,10 @@ export default async (event) => {
   const log = logResponse(eventData, api);
   try {
     const service = Services[eventData.trigger.action.service.key];
-    const result = await service(params(eventData));
+    const result = await service({
+      ...params(eventData),
+      context: eventData.trigger.action.service.isSystem ? event.context : null,
+    });
     return log(monitoring({ result }));
   } catch (error) {
     return log(monitoring({ error }));

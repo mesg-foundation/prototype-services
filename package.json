@@ -14,7 +14,8 @@
     "stop": "graphcool local stop",
     "db:seed": "ts-node db/seed",
     "db:migration:create": "ts-node db/migration create",
-    "db:migrate": "ts-node db/migration migrate"
+    "db:migrate": "ts-node db/migration migrate",
+    "db:services:update": "ts-node db/services"
   },
   "author": "Anthony ESTEBE <anthony.estebe@gmail.com>",
   "license": "MIT",
@@ -23,6 +24,10 @@
     "axios": "^0.16.2",
     "bcryptjs": "^2.4.3",
     "ethjs-account": "^0.1.4",
+    "ethjs-provider-http": "^0.1.6",
+    "ethjs-query": "^0.3.1",
+    "ethjs-signer": "^0.1.1",
+    "ethjs-unit": "^0.1.6",
     "flat": "^4.0.0",
     "graphcool-lib": "^0.1.4",
     "graphql-request": "^1.4.0",

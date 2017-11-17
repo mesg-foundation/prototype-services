@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "type": "object",
+  "title": "Ethereum Transaction",
+  "description": "Sign and create a transaction on Ethereum based on your project addresses",
+  "required": ["chain", "address"],
+  "properties": {
+    "chain": {
+      "title": "Blockchain",
+      "description": "The blockchain that will process the transaction",
+      "type": "string",
+      "enum": [
+        "MAINNET",
+        "TESTNET"
+      ]
+    },
+    "address": {
+      "title": "Address",
+      "description": "The address where you will send the transaction",
+      "type": "string",
+      "pattern": "^0x[0-9A-Za-z]{40}$"
+    },
+    "amount": {
+      "title": "Amount",
+      "description": "The amount of ETH to send (ensure that your wallet has enought ETH to send the transaction and cover the fees)",
+      "type": "number"
+    }
+  }
+}
