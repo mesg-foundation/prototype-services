@@ -189,6 +189,7 @@ type EthereumTransactionConnector @model {
   connector: Connector @relation(name: "EthereumTransactionOnConnectors")
   address: String!
   chain: ETHEREUM_BLOCKCHAIN!
+  matchType: ETHEREUM_TRANSACTION_MATCH_TYPE @defaultValue(value: TO)
 }
 
 enum CURRENCY {
@@ -209,4 +210,10 @@ enum CONNECTOR_TYPE {
 enum ETHEREUM_BLOCKCHAIN {
   MAINNET
   TESTNET
+}
+
+enum ETHEREUM_TRANSACTION_MATCH_TYPE {
+  ANY
+  FROM
+  TO
 }
