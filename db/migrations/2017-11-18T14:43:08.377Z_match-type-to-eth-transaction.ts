@@ -8,7 +8,7 @@ const query = `query {
   allEthereumTransactionConnectors { id }
 }`;
 
-const mutation = `mutation (id: $ID!, matchType: ETHEREUM_TRANSACTION_MATCH_TYPE) {
+const mutation = `mutation ($id: ID!, $matchType: ETHEREUM_TRANSACTION_MATCH_TYPE) {
   updateEthereumTransactionConnector(id: $id, matchType: $matchType) { id }
 }`;
 
