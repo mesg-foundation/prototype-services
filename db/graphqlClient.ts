@@ -24,15 +24,13 @@ const fileClient = (targetName) => ({
       const fullPath = filePath.startsWith("/") ? filePath : [process.cwd(), filePath.replace(/^\.\//, "")].join("/");
       return `file://${fullPath}`;
     }
+    const filename = filePath.split("/").reverse()[0];
     const data = new FormData();
-    data.append("data", readFileSync(filePath));
+    data.append("data", readFileSync(filePath), filename);
     const response = await axios.post(api, data, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
+      headers: data.getHeaders(),
     });
-    console.log(response.data);
-    return response.data;
+    return response.data.url;
   },
 });
 
