@@ -23,6 +23,7 @@
     "@types/bcryptjs": "^2.4.1",
     "axios": "^0.16.2",
     "bcryptjs": "^2.4.3",
+    "ethjs-abi": "^0.2.1",
     "ethjs-account": "^0.1.4",
     "ethjs-provider-http": "^0.1.6",
     "ethjs-query": "^0.3.1",

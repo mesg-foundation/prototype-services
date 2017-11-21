@@ -2,7 +2,7 @@ import * as HttpProvider from "ethjs-provider-http";
 import * as Eth from "ethjs-query";
 import { sign } from "ethjs-signer";
 import { toWei } from "ethjs-unit";
-import { fromEvent, GraphcoolOptions } from "graphcool-lib";
+import { fromEvent } from "graphcool-lib";
 
 interface IAddress {
   address: string;
@@ -29,8 +29,19 @@ const getAddress = async (api, project, chain) => {
   return allAddresses[0];
 };
 
+const getTransactionReceipt = async (eth, txHash) => new Promise((resolve) => {
+  const interval = setInterval(() => {
+    eth.getTransactionReceipt(txHash, (err, receipt) => {
+      if (receipt) {
+        clearInterval(interval);
+        resolve(receipt);
+      }
+    });
+  }, 300);
+});
+
 export default async (event) => {
-  const { chain, address, amount } = event.meta;
+  const { chain, address, amount, data } = event.meta;
   const api = fromEvent(event).api("simple/v1");
   const account = await getAddress(api, event.project, chain);
   if (!account) {
@@ -39,20 +50,26 @@ export default async (event) => {
 
   const eth = new Eth(new HttpProvider(providers[chain]));
   const txData = {
-    data: "",
+    data,
     from: account.address,
     gasPrice: (await eth.gasPrice()).toString(),
     nonce: await eth.getTransactionCount(account.address),
     to: address,
     value: toWei(amount, "ether"),
   };
-  const gas = (await eth.estimateGas(txData)).toString();
+  let gas = null;
+  try {
+    gas = (await eth.estimateGas(txData)).toString();
+  } catch (e) {
+    throw new Error("Cannot calculate extimate gas. Please verify your data");
+  }
   try {
     const transaction = await eth.sendRawTransaction(sign({
       ...txData,
       gas,
     }, account.privateKey));
-    return transaction;
+    const receipt = await getTransactionReceipt(eth, transaction);
+    return receipt;
   } catch (e) {
     if (e.value) {
       throw new Error(e.value.message);

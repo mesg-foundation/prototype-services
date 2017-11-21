@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "type": "object",
+  "title": "Ethereum Contract",
+  "description": "Call a method of a contract",
+  "required": ["contractId", "abi"],
+  "properties": {
+    "contractId": {
+      "title": "Contract",
+      "description": "The contract that will be called for a transaction",
+      "type": "string"
+    },
+    "abi": {
+      "title": "abi",
+      "description": "The function called for this contract",
+      "type": "object",
+      "properties": {
+        "constant": {
+          "title": "Contant",
+          "type": "boolean"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "outputs": {
+          "type": "array"
+        },
+        "inputs": {
+          "type": "array"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "function"
+          ]
+        }
+      }
+    },
+    "payload": {
+      "title": "Payload",
+      "description": "The parameters for the the function of the contract"
+    },
+    "amount": {
+      "title": "Amount",
+      "description": "The number of Ether you want to send to the contract",
+      "type": "number"
+    }
+  }
+}
