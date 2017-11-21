@@ -3,6 +3,17 @@ type Migration @model {
   migrationName: String! @isUnique
 }
 
+type File @model {
+  contentType: String!
+  createdAt: DateTime!
+  id: ID! @isUnique
+  name: String!
+  secret: String! @isUnique
+  size: Int!
+  updatedAt: DateTime!
+  url: String! @isUnique
+}
+
 type Contract @model {
   address: String!
   createdAt: DateTime!
