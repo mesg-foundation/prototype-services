@@ -40,6 +40,11 @@
     "payload": {
       "title": "Payload",
       "description": "The parameters for the the function of the contract"
+    },
+    "amount": {
+      "title": "Amount",
+      "description": "The number of Ether you want to send to the contract",
+      "type": "number"
     }
   }
 }

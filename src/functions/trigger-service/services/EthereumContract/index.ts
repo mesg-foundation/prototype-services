@@ -4,8 +4,8 @@ import EthereumTransaction from "../EthereumTransaction";
 
 const generateData = ({ meta }) => {
   const payload = typeof meta.payload === "string"
-    ? JSON.parse(meta.payload)
-    : meta.payload;
+  ? JSON.parse(meta.payload)
+  : meta.payload;
   const data = meta.abi.inputs
     .map((input) => payload[input.name]);
   return abi.encodeMethod(meta.abi, data);
@@ -26,7 +26,7 @@ export default async (event) => {
   const meta = {
     ...event.meta,
     address: contract.address,
-    amount: 0,
+    amount: event.meta.amount,
     chain: contract.chain,
     data,
   };
