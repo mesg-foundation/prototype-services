@@ -29,6 +29,17 @@ const getAddress = async (api, project, chain) => {
   return allAddresses[0];
 };
 
+const getTransactionReceipt = async (eth, txHash) => new Promise((resolve) => {
+  const interval = setInterval(() => {
+    eth.getTransactionReceipt(txHash, (err, receipt) => {
+      if (receipt) {
+        clearInterval(interval);
+        resolve(receipt);
+      }
+    });
+  }, 300);
+});
+
 export default async (event) => {
   const { chain, address, amount, data } = event.meta;
   const api = fromEvent(event).api("simple/v1");
@@ -46,13 +57,19 @@ export default async (event) => {
     to: address,
     value: toWei(amount, "ether"),
   };
-  const gas = (await eth.estimateGas(txData)).toString();
+  let gas = null;
+  try {
+    gas = (await eth.estimateGas(txData)).toString();
+  } catch (e) {
+    throw new Error("Cannot calculate extimate gas. Please verify your data");
+  }
   try {
     const transaction = await eth.sendRawTransaction(sign({
       ...txData,
       gas,
     }, account.privateKey));
-    return transaction;
+    const receipt = await getTransactionReceipt(eth, transaction);
+    return receipt;
   } catch (e) {
     if (e.value) {
       throw new Error(e.value.message);
