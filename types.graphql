@@ -163,6 +163,7 @@ type Action @model {
   service: Service @relation(name: "ServiceOnAction")
   triggers: [Trigger!]! @relation(name: "ActionOnTriggers")
   data: Json!
+  metaPreProcessing: String
 }
 
 type Connector @model {

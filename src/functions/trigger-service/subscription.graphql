@@ -45,6 +45,7 @@ subscription {
             isSystem
           }
           data
+          metaPreProcessing
         }
         project {
           id
