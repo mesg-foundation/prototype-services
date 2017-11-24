@@ -32,7 +32,7 @@ type Contract @model {
 }
 
 type Event @model {
-  key: String! # @isUnique
+  key: String # @isUnique
   createdAt: DateTime!
   id: ID! @isUnique
   executedAt: DateTime
