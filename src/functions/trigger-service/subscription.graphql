@@ -37,6 +37,9 @@ subscription {
             address
             chain
           }
+          webhook {
+            key
+          }
         }
         action {
           service {

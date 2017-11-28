@@ -2,6 +2,7 @@ const connector = (trigger) => [
   "ethereumContract",
   "ethereumTransaction",
   "ethereumToken",
+  "webhook",
 ]
   .map((x) => trigger.connector[x])
   .filter((x) => x)[0];

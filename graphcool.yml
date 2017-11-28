@@ -139,6 +139,9 @@ permissions:
 - operation: EthereumTokenConnector.read
   authenticated: true
   query: ./src/permissions/EthereumTokenConnector.graphql:read
+- operation: WebhookConnector.read
+  authenticated: true
+  query: ./src/permissions/WebhookConnector.graphql:read
 - operation: Event.create
   authenticated: true
   query: ./src/permissions/Event.graphql:create
@@ -225,6 +228,8 @@ permissions:
 - operation: EthereumTransactionOnConnectors.connect
   authenticated: true
 - operation: EthereumTokenOnConnectors.connect
+  authenticated: true
+- operation: WebhookOnConnectors.connect
   authenticated: true
 - operation: EventOnTrigger.connect
   authenticated: true

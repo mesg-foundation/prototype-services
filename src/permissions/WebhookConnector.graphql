@@ -1,0 +1,12 @@
+query read($user_id: ID, $node_id: ID) {
+  SomeWebhookConnectorExists(filter: {
+    id: $node_id, 
+    connector: {
+      project: {
+        users_some: {
+          id: $user_id
+        }
+      }
+    }
+  })
+}

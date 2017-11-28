@@ -173,6 +173,7 @@ type Connector @model {
   ethereumContract: EthereumContractConnector @relation(name: "EthereumContractOnConnectors")
   ethereumTransaction: EthereumTransactionConnector @relation(name: "EthereumTransactionOnConnectors")
   ethereumToken: EthereumTokenConnector @relation(name: "EthereumTokenOnConnectors")
+  webhook: WebhookConnector @relation(name: "WebhookOnConnectors")
   triggers: [Trigger!]! @relation(name: "ConnectorOnTriggers")
   connectorType: CONNECTOR_TYPE! @defaultValue(value: ETHEREUM_CONTRACT)
   createdAt: DateTime!
@@ -205,6 +206,12 @@ type EthereumTransactionConnector @model {
   matchType: ETHEREUM_TRANSACTION_MATCH_TYPE @defaultValue(value: TO)
 }
 
+type WebhookConnector @model {
+  id: ID! @isUnique
+  connector: Connector @relation(name: "WebhookOnConnectors")
+  key: String! @isUnique
+}
+
 enum CURRENCY {
   USD
 }
@@ -218,6 +225,7 @@ enum CONNECTOR_TYPE {
   ETHEREUM_CONTRACT
   ETHEREUM_TRANSACTION
   ETHEREUM_TOKEN
+  WEBHOOK
 }
 
 enum ETHEREUM_BLOCKCHAIN {
