@@ -130,18 +130,43 @@ permissions:
   - chain
   - name
   - description
+
+- operation: EthereumContractConnector.create
+  authenticated: true
 - operation: EthereumContractConnector.read
   authenticated: true
   query: ./src/permissions/EthereumContractConnector.graphql:read
+- operation: EthereumContractConnector.update
+  authenticated: true
+  query: ./src/permissions/EthereumContractConnector.graphql:update
+
+- operation: EthereumTransactionConnector.create
+  authenticated: true
 - operation: EthereumTransactionConnector.read
   authenticated: true
   query: ./src/permissions/EthereumTransactionConnector.graphql:read
+- operation: EthereumTransactionConnector.update
+  authenticated: true
+  query: ./src/permissions/EthereumTransactionConnector.graphql:update
+
+- operation: EthereumTokenConnector.create
+  authenticated: true
 - operation: EthereumTokenConnector.read
   authenticated: true
   query: ./src/permissions/EthereumTokenConnector.graphql:read
+- operation: EthereumTokenConnector.update
+  authenticated: true
+  query: ./src/permissions/EthereumTokenConnector.graphql:update
+
+- operation: WebhookConnector.create
+  authenticated: true
 - operation: WebhookConnector.read
   authenticated: true
   query: ./src/permissions/WebhookConnector.graphql:read
+- operation: WebhookConnector.update
+  authenticated: true
+  query: ./src/permissions/WebhookConnector.graphql:update
+
 - operation: Event.create
   authenticated: true
   query: ./src/permissions/Event.graphql:create

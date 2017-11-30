@@ -1,3 +1,23 @@
-query read($user_id: ID, $node_id: ID) {
-  SomeEthereumContractConnectorExists(filter: {id: $node_id, connector: {project: {users_some: {id: $user_id}}}})
+query read(
+  $node_id: ID
+) {
+  SomeEthereumContractConnectorExists(filter: {
+    id: $node_id
+  })
+}
+
+query update(
+  $user_id: ID,
+  $node_id: ID
+) {
+  SomeEthereumContractConnectorExists(filter: {
+    id: $node_id, 
+    connector: {
+      project: {
+        users_some: {
+          id: $user_id
+        }
+      }
+    }
+  })
 }

@@ -1,4 +1,15 @@
-query read($user_id: ID, $node_id: ID) {
+query read(
+  $node_id: ID
+) {
+  SomeWebhookConnectorExists(filter: {
+    id: $node_id
+  })
+}
+
+query update(
+  $user_id: ID,
+  $node_id: ID
+) {
   SomeWebhookConnectorExists(filter: {
     id: $node_id, 
     connector: {
