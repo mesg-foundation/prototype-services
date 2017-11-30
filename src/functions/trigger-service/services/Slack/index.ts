@@ -2,12 +2,16 @@ import axios from "axios";
 
 const generateTitle = ({ connector, trigger }) => connector.contract
   ? `[${connector.contract.chain}] Ethereum Event: ${connector.eventName} on ${connector.contract.name}`
-  : `[${connector.chain}] Ethereum transaction: ${connector.address}`;
+  : (connector.chain
+    ? `[${connector.chain}] Ethereum transaction: ${connector.address}`
+    : `Event`);
 
 const fields = ({ transaction, payload }) => [
-  ...Object.keys(transaction).map((x) => ({ title: x, value: transaction[x] })),
+  ...Object.keys(transaction)
+    .filter((x) => [null, undefined, ""].indexOf(transaction[x]) < 0)
+    .map((x) => ({ title: x, value: transaction[x] })),
   Object.keys(payload).length
-    ? { title: "payload", value: JSON.stringify(payload) }
+    ? { title: "payload", value: JSON.stringify(payload, null, 2) }
     : null,
 ].filter((x) => x);
 

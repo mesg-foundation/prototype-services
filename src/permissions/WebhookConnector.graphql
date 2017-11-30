@@ -1,17 +1,17 @@
 query read(
   $node_id: ID
 ) {
-  SomeEthereumTokenConnectorExists(filter: {
+  SomeWebhookConnectorExists(filter: {
     id: $node_id
   })
 }
 
 query update(
-  $user_id: ID, 
+  $user_id: ID,
   $node_id: ID
 ) {
-  SomeEthereumTokenConnectorExists(filter: {
-    id: $node_id,
+  SomeWebhookConnectorExists(filter: {
+    id: $node_id, 
     connector: {
       project: {
         users_some: {
