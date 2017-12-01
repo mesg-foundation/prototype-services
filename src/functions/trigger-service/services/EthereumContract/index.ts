@@ -26,7 +26,7 @@ export default async (event) => {
   const meta = {
     ...event.meta,
     address: contract.address,
-    amount: event.meta.amount,
+    amount: event.meta.amount || 0,
     chain: contract.chain,
     data,
   };
